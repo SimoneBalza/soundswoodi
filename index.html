@@ -4,32 +4,416 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Soundswood.I – Say It Loud.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;700;900&family=Barlow:wght@300;400&display=swap" rel="stylesheet">
   <style>
+    :root {
+      --purple: #8B2FC9;
+      --pink: #C4308A;
+      --coral: #D95070;
+      --orange: #E89040;
+      --gold: #F0B030;
+      --text-light: #1a1a1a;
+      --text-muted: #a0a0a8;
+    }
+
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
     html, body {
       width: 100%;
-      height: 100%;
-      background-color: #fff;
+      min-height: 100vh;
+      font-family: 'Barlow', sans-serif;
     }
 
     body {
+      background-color: #d0d0d0;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    .bg {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      background:
+        radial-gradient(ellipse 65% 65% at 50% 45%, rgba(255,255,255,0.88) 0%, transparent 70%),
+        radial-gradient(ellipse 38% 80% at 5% 50%,  rgba(190,190,190,0.7) 0%, transparent 60%),
+        radial-gradient(ellipse 38% 80% at 95% 50%, rgba(190,190,190,0.7) 0%, transparent 60%),
+        linear-gradient(135deg, #b8b8b8 0%, #dcdcdc 40%, #f0f0f0 50%, #e0e0e0 60%, #c0c0c0 100%);
+    }
+    .bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 180px 180px;
+      opacity: 0.17;
+      mix-blend-mode: multiply;
+      pointer-events: none;
+    }
+    .glow {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      background: radial-gradient(ellipse 50% 50% at 50% 46%, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.3) 45%, transparent 70%);
+      pointer-events: none;
+    }
+
+    /* ── LAYOUT ── */
+    .page {
+      position: relative;
+      z-index: 10;
       min-height: 100vh;
       display: flex;
+      flex-direction: column;
       align-items: center;
+      padding: 60px 24px 80px;
+    }
+
+    /* ── FONDERIA LOGO (top-right) ── */
+    .fonderia-link {
+      position: fixed;
+      top: 24px;
+      right: 28px;
+      z-index: 100;
+      opacity: 0;
+      animation: fadeIn 0.6s ease forwards 1.4s;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .fonderia-logo-svg {
+      height: 42px;
+      width: auto;
+      transition: transform 0.25s ease, opacity 0.25s ease;
+      opacity: 0.82;
+    }
+    .fonderia-link:hover .fonderia-logo-svg {
+      transform: scale(1.07);
+      opacity: 1;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 52px;
+    }
+
+    .logo-wrap {
+      opacity: 0;
+      animation: fadeDown 0.8s ease forwards 0.2s;
+      margin-bottom: 10px;
+    }
+
+    .tagline {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: clamp(68px, 11vw, 148px);
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: -0.01em;
+      line-height: 0.92;
+      background: linear-gradient(90deg,
+        #8B2FC9 0%, #C4308A 28%, #D95070 45%,
+        #E07060 60%, #E89040 80%, #F0B030 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      opacity: 0;
+      animation: fadeUp 0.9s cubic-bezier(0.16,1,0.3,1) forwards 0.4s;
+      text-align: center;
+    }
+
+    .date {
+      font-family: 'Barlow', sans-serif;
+      font-size: clamp(18px, 2.8vw, 32px);
+      font-weight: 300;
+      letter-spacing: 0.14em;
+      color: var(--text-muted);
+      margin-top: 18px;
+      opacity: 0;
+      animation: fadeUp 0.7s ease forwards 0.75s;
+    }
+
+    /* ── DIVIDER ── */
+    .divider {
+      width: 60px;
+      height: 2px;
+      background: linear-gradient(90deg, var(--purple), var(--gold));
+      border-radius: 2px;
+      margin: 40px 0;
+      opacity: 0;
+      animation: fadeIn 0.6s ease forwards 1s;
+    }
+
+    /* ── PRODUCTS ── */
+    .products-section {
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 1.05s;
+      width: 100%;
+      max-width: 860px;
+      margin-bottom: 56px;
+    }
+
+    .products-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      text-align: center;
+      margin-bottom: 28px;
+    }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .product-card {
+      background: rgba(255,255,255,0.52);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.75);
+      border-radius: 16px;
+      padding: 20px 16px 18px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      transition: transform 0.22s ease, box-shadow 0.22s ease;
+    }
+    .product-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.12);
+    }
+
+    .product-img-wrap {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      border-radius: 10px;
+      overflow: hidden;
+      background: linear-gradient(135deg, #c830a0, #f0a030);
+    }
+    .product-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .product-name {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-light);
+      text-align: center;
+      line-height: 1.2;
+    }
+
+    /* ── BUTTONS ── */
+    .buttons-section {
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 1.15s;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
       justify-content: center;
     }
 
-    img {
-      width: 100%;
-      height: auto;
-      max-height: 100vh;
-      object-fit: contain;
-      display: block;
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 16px 32px;
+      border-radius: 50px;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      text-decoration: none;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      border: none;
+      outline: none;
+    }
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 14px 36px rgba(0,0,0,0.18);
+    }
+    .btn:active { transform: translateY(-1px); }
+
+    .btn-primary {
+      background: linear-gradient(90deg, var(--purple), var(--pink), var(--orange));
+      color: #fff;
+      box-shadow: 0 6px 20px rgba(139,47,201,0.3);
+    }
+
+    .btn-outline {
+      background: rgba(255,255,255,0.6);
+      backdrop-filter: blur(10px);
+      color: var(--text-light);
+      border: 1.5px solid rgba(139,47,201,0.35);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+    }
+    .btn-outline:hover {
+      background: rgba(255,255,255,0.85);
+      border-color: var(--purple);
+    }
+
+    .btn svg {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+    }
+
+    /* ── FOOTER ── */
+    .footer-note {
+      margin-top: 60px;
+      font-size: 11px;
+      font-weight: 300;
+      letter-spacing: 0.15em;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      opacity: 0;
+      animation: fadeIn 0.6s ease forwards 1.5s;
+      text-align: center;
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 600px) {
+      .page { padding: 48px 16px 60px; }
+      .fonderia-link { top: 16px; right: 16px; }
+      .fonderia-logo-svg { height: 32px; }
+      .products-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+      .btn { padding: 14px 22px; font-size: 14px; }
     }
   </style>
 </head>
 <body>
-  <img src="LANDING_PAGE.png" alt="Say It Loud – 21.04.2026" />
+
+  <div class="bg"></div>
+  <div class="glow"></div>
+
+  <!-- Fonderia logo top-right -->
+  <a href="https://fonderia.srl" target="_blank" rel="noopener" class="fonderia-link">
+    <svg class="fonderia-logo-svg" viewBox="0 0 160 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <text x="0" y="44" font-family="Georgia, serif" font-weight="700" font-size="46" fill="#6B1FA0">fonderia</text>
+    </svg>
+  </a>
+
+  <div class="page">
+
+    <!-- HERO -->
+    <div class="hero">
+      <div class="logo-wrap">
+        <svg height="110" viewBox="0 0 220 260" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="66" cy="62" r="46" stroke="#1a1a1a" stroke-width="8" fill="none"/>
+          <path d="M122 16 Q122 108 168 108 Q214 108 214 16" stroke="#1a1a1a" stroke-width="8" fill="none" stroke-linecap="round"/>
+          <circle cx="66" cy="174" r="46" stroke="#1a1a1a" stroke-width="8" fill="none"/>
+          <circle cx="168" cy="174" r="46" stroke="#1a1a1a" stroke-width="8" fill="none"/>
+          <text x="110" y="244" text-anchor="middle" font-family="'Barlow Condensed', sans-serif" font-weight="300" font-size="19" letter-spacing="5" fill="#1a1a1a">SOUNDS WOOD.I</text>
+        </svg>
+      </div>
+      <h1 class="tagline">SAY IT LOUD.</h1>
+      <p class="date">21.04.2026</p>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- PRODUCTS 3x3 -->
+    <div class="products-section">
+      <p class="products-label">Milano Design Week 2026 — Collezione</p>
+      <div class="products-grid">
+
+        <div class="product-card">
+          <div class="product-img-wrap">
+            <img src="lambris_trombetta.png" alt="Lambris Trombetta">
+          </div>
+          <span class="product-name">Lambris Trombetta</span>
+        </div>
+
+        <div class="product-card">
+          <div class="product-img-wrap">
+            <img src="madia_trombetta.png" alt="Madia Trombetta">
+          </div>
+          <span class="product-name">Madia Trombetta</span>
+        </div>
+
+        <div class="product-card">
+          <div class="product-img-wrap">
+            <img src="vynil_worm.png" alt="Vynilworm">
+          </div>
+          <span class="product-name">Vynilworm</span>
+        </div>
+
+        <div class="product-card">
+          <div class="product-img-wrap">
+            <img src="dancing_beton.png" alt="Dancing Beton">
+          </div>
+          <span class="product-name">Dancing Beton</span>
+        </div>
+
+        <div class="product-card">
+          <div class="product-img-wrap">
+            <img src="lawyer.png" alt="Lawyer">
+          </div>
+          <span class="product-name">Lawyer</span>
+        </div>
+
+        <div class="product-card">
+          <div class="product-img-wrap">
+            <img src="tape_monster.png" alt="Tape Monster">
+          </div>
+          <span class="product-name">Tape Monster</span>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- BUTTONS -->
+    <div class="buttons-section">
+
+      <a href="PRICE_LIST_-_SOUNDS_WOODi_21042026.pdf" download class="btn btn-outline">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <path d="M12 2v13M7 11l5 5 5-5"/><path d="M3 18v2a1 1 0 001 1h16a1 1 0 001-1v-2"/>
+        </svg>
+        Catalogo & Price List
+      </a>
+
+      <a href="mailto:diego@fonderia.srl?subject=Acquisto%20Soundswood.I&body=Salve%2C%20sono%20interessato%20ad%20acquistare..." class="btn btn-primary">
+        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round">
+          <path d="M20 12V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2h7"/><path d="M16 19l2 2 4-4"/>
+        </svg>
+        Compra Ora
+      </a>
+
+    </div>
+
+    <p class="footer-note">Soundswood.I is a brand of Fonderia Srl &nbsp;·&nbsp; Milano</p>
+
+  </div>
+
 </body>
 </html>
