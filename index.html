@@ -610,7 +610,25 @@
       const email = document.getElementById('emailInput').value.trim();
       const msg = document.getElementById('modalMsg');
 
-      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      // Formato base
+      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) {
+        msg.textContent = 'Inserisci un indirizzo email valido.';
+        msg.className = 'modal-msg error';
+        return;
+      }
+
+      // Blocca domini ovviamente falsi
+      const domain = email.split('@')[1].toLowerCase();
+      const fakeDomains = ['test.com','test.it','fake.com','fake.it','example.com','example.it','prova.it','prova.com','aaa.com','bbb.com','ccc.com','xxx.com','mailinator.com','guerrillamail.com','tempmail.com','throwam.com','yopmail.com','sharklasers.com','dispostable.com'];
+      if (fakeDomains.includes(domain)) {
+        msg.textContent = 'Inserisci un indirizzo email reale.';
+        msg.className = 'modal-msg error';
+        return;
+      }
+
+      // Controlla che il dominio abbia un TLD valido (almeno 2 caratteri)
+      const tld = domain.split('.').pop();
+      if (tld.length < 2) {
         msg.textContent = 'Inserisci un indirizzo email valido.';
         msg.className = 'modal-msg error';
         return;
