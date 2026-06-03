@@ -578,6 +578,10 @@
       <h2>Scarica il Catalogo</h2>
       <p>Inserisci la tua email per accedere al catalogo e alla price list di Soundswood.I</p>
       <input type="email" id="emailInput" class="modal-input" placeholder="la tua@email.com">
+      <label style="display:flex; align-items:flex-start; gap:10px; cursor:pointer; margin-bottom:14px;">
+        <input type="checkbox" id="marketingConsent" style="margin-top:3px; accent-color:#8B2FC9; width:16px; height:16px; flex-shrink:0;">
+        <span style="font-size:12px; font-weight:300; color:#888; line-height:1.5;">Acconsento a ricevere comunicazioni commerciali e di marketing da parte di Fonderia Srl. Potrai revocare il consenso in qualsiasi momento.</span>
+      </label>
       <button class="modal-submit" onclick="submitEmail()">Scarica ora</button>
       <p class="modal-msg" id="modalMsg"></p>
     </div>
@@ -621,7 +625,7 @@
           method: 'POST',
           mode: 'no-cors',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email: email, timestamp: new Date().toISOString() })
+          body: JSON.stringify({ email: email, timestamp: new Date().toISOString(), marketing: document.getElementById('marketingConsent').checked ? 'Si' : 'No' })
         });
 
         // Download automatico
