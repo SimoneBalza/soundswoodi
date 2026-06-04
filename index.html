@@ -617,21 +617,39 @@
         return;
       }
 
-      // Blocca domini ovviamente falsi
+      // Validazione dominio più robusta
       const domain = email.split('@')[1].toLowerCase();
-      const fakeDomains = ['test.com','test.it','fake.com','fake.it','example.com','example.it','prova.it','prova.com','aaa.com','bbb.com','ccc.com','xxx.com','mailinator.com','guerrillamail.com','tempmail.com','throwam.com','yopmail.com','sharklasers.com','dispostable.com'];
-      if (fakeDomains.includes(domain)) {
-        msg.textContent = 'Inserisci un indirizzo email reale.';
+      const parts = domain.split('.');
+      const tld = parts[parts.length - 1];
+      const domainName = parts[parts.length - 2] || '';
+
+      // Blocca TLD troppo corti o inesistenti
+      if (tld.length < 2) {
+        msg.textContent = 'Inserisci un indirizzo email corretta.';
         msg.className = 'modal-msg error';
         return;
       }
 
-      // Controlla che il dominio abbia un TLD valido (almeno 2 caratteri)
-      const tld = domain.split('.').pop();
-      if (tld.length < 2) {
-        msg.textContent = 'Inserisci un indirizzo email valido.';
+      // Blocca domini con nome troppo corto (es. a.com, io.com, x.it)
+      if (domainName.length < 3) {
+        msg.textContent = 'Inserisci un indirizzo email corretta.';
         msg.className = 'modal-msg error';
         return;
+      }
+
+      // Blocca domini temporanei e falsi
+      const fakeDomains = ['test.com','test.it','fake.com','fake.it','example.com','example.it','prova.it','prova.com','aaa.com','bbb.com','ccc.com','xxx.com','mailinator.com','guerrillamail.com','tempmail.com','throwam.com','yopmail.com','sharklasers.com','dispostable.com','trashmail.com','getairmail.com','filzmail.com','spamgourmet.com'];
+      if (fakeDomains.includes(domain)) {
+        msg.textContent = 'Inserisci un indirizzo email corretta.';
+        msg.className = 'modal-msg error';
+        return;
+      }
+
+      // Avviso consenso marketing se non spuntato
+      const consent = document.getElementById('marketingConsent').checked;
+      if (!consent) {
+        msg.textContent = '⚠️ Ricorda: spunta il consenso per restare aggiornato sulle nostre novità!';
+        msg.className = 'modal-msg';
       }
 
       const btn = document.querySelector('.modal-submit');
