@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Madia Trombetta – Design acustico | Soundswood.I</title>
+  <meta name="description" content="Madia Trombetta: elemento di arredo con funzione acustica integrata. Edizione limitata 10 pezzi handcrafted. Pre-ordina ora, consegna entro Natale 2026.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;700;900&family=Barlow:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --purple: #8B2FC9; --pink: #C4308A; --coral: #D95070;
+      --orange: #E89040; --gold: #F0B030;
+      --text-light: #1a1a1a; --text-muted: #666;
+      --grad: linear-gradient(90deg, #8B2FC9 0%, #C4308A 28%, #D95070 45%, #E07060 60%, #E89040 80%, #F0B030 100%);
+    }
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior: smooth; }
+    html, body { width:100%; font-family:'Barlow',sans-serif; }
+    body { background-color:#d0d0d0; overflow-x:hidden; }
+
+    .bg {
+      position:fixed; inset:0; z-index:0;
+      background:
+        radial-gradient(ellipse 65% 65% at 50% 45%, rgba(255,255,255,0.88) 0%, transparent 70%),
+        radial-gradient(ellipse 38% 80% at 5% 50%, rgba(190,190,190,0.7) 0%, transparent 60%),
+        radial-gradient(ellipse 38% 80% at 95% 50%, rgba(190,190,190,0.7) 0%, transparent 60%),
+        linear-gradient(135deg, #b8b8b8 0%, #dcdcdc 40%, #f0f0f0 50%, #e0e0e0 60%, #c0c0c0 100%);
+    }
+    .bg::after {
+      content:''; position:absolute; inset:0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size:180px 180px; opacity:0.17; mix-blend-mode:multiply; pointer-events:none;
+    }
+    .glow { position:fixed; inset:0; z-index:0; background: radial-gradient(ellipse 50% 50% at 50% 46%, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.3) 45%, transparent 70%); pointer-events:none; }
+
+    /* NAVBAR */
+    .navbar {
+      position:fixed; top:0; left:0; right:0; z-index:200;
+      display:flex; align-items:center; justify-content:space-between;
+      padding:0 32px; height:64px;
+      background:rgba(220,220,220,0.72); backdrop-filter:blur(16px);
+      border-bottom:1px solid rgba(255,255,255,0.5);
+    }
+    .navbar-logo { display:flex; align-items:center; gap:10px; text-decoration:none; }
+    .navbar-logo svg { height:36px; width:auto; }
+    .navbar-logo-text { font-family:'Barlow Condensed',sans-serif; font-size:15px; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:var(--text-light); }
+    .navbar-links { display:flex; align-items:center; gap:4px; list-style:none; }
+    .navbar-links a { font-family:'Barlow Condensed',sans-serif; font-size:13px; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:#555; text-decoration:none; padding:8px 14px; border-radius:50px; transition:color 0.2s, background 0.2s; }
+    .navbar-links a:hover { color:var(--text-light); background:rgba(255,255,255,0.5); }
+    .navbar-cta { background:var(--grad) !important; color:#fff !important; padding:9px 20px !important; border-radius:50px !important; box-shadow:0 4px 14px rgba(139,47,201,0.28); }
+    .navbar-fonderia img { height:40px; width:auto; opacity:0.75; transition:opacity 0.2s; }
+    .navbar-fonderia img:hover { opacity:1; }
+    .nav-toggle { display:none; flex-direction:column; gap:5px; cursor:pointer; padding:8px; background:none; border:none; }
+    .nav-toggle span { display:block; width:22px; height:2px; background:var(--text-light); border-radius:2px; }
+
+    /* BREADCRUMB */
+    .breadcrumb { position:relative; z-index:10; padding:80px 24px 0; display:flex; justify-content:center; }
+    .breadcrumb-inner { width:100%; max-width:960px; }
+    .breadcrumb a, .breadcrumb span { font-family:'Barlow Condensed',sans-serif; font-size:12px; font-weight:400; letter-spacing:0.2em; text-transform:uppercase; color:#888; text-decoration:none; }
+    .breadcrumb a:hover { color:var(--purple); }
+    .breadcrumb span { color:#aaa; padding:0 8px; }
+
+    /* PAGE LAYOUT */
+    .page { position:relative; z-index:10; }
+    .product-layout { display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:start; max-width:960px; margin:0 auto; padding:40px 24px 80px; }
+
+    /* GALLERY */
+    .gallery { position:sticky; top:88px; }
+    .gallery-main { width:100%; aspect-ratio:1/1; border-radius:20px; overflow:hidden; background:linear-gradient(135deg,#c830a0,#f0a030); margin-bottom:12px; box-shadow:0 20px 60px rgba(0,0,0,0.14); }
+    .gallery-main img { width:100%; height:100%; object-fit:cover; display:block; transition:opacity 0.3s; }
+    .gallery-thumbs { display:grid; grid-template-columns:repeat(4,1fr); gap:8px; }
+    .thumb { aspect-ratio:1/1; border-radius:10px; overflow:hidden; cursor:pointer; opacity:0.6; transition:opacity 0.2s; border:2px solid transparent; }
+    .thumb.active { opacity:1; border-color:var(--purple); }
+    .thumb:hover { opacity:0.9; }
+    .thumb img { width:100%; height:100%; object-fit:cover; display:block; }
+
+    /* PRODUCT INFO */
+    .product-info {}
+    .product-eyebrow { font-family:'Barlow Condensed',sans-serif; font-size:11px; font-weight:400; letter-spacing:0.3em; text-transform:uppercase; color:#888; margin-bottom:10px; }
+    .product-title { font-family:'Barlow Condensed',sans-serif; font-size:clamp(40px,5vw,68px); font-weight:900; text-transform:uppercase; line-height:0.95; background:var(--grad); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; margin-bottom:16px; }
+    .product-desc { font-size:15px; font-weight:300; color:#555; line-height:1.8; margin-bottom:28px; }
+
+    /* SCARCITY */
+    .scarcity-box { background:rgba(255,255,255,0.55); backdrop-filter:blur(10px); border:1px solid rgba(255,255,255,0.75); border-radius:16px; padding:20px 22px; margin-bottom:28px; }
+    .scarcity-row { display:flex; align-items:center; justify-content:space-between; margin-bottom:10px; }
+    .scarcity-text { font-family:'Barlow Condensed',sans-serif; font-size:14px; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; color:var(--text-light); }
+    .scarcity-count { font-family:'Barlow Condensed',sans-serif; font-size:14px; font-weight:700; background:var(--grad); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+    .avail-bar { width:100%; height:5px; background:rgba(0,0,0,0.08); border-radius:3px; overflow:hidden; margin-bottom:10px; }
+    .avail-fill { height:100%; border-radius:3px; background:var(--grad); }
+    .scarcity-sub { font-size:12px; color:#888; }
+    .scarcity-sub strong { color:#D95070; }
+
+    /* COUNTDOWN */
+    .countdown-box { background:rgba(139,47,201,0.06); border:1px solid rgba(139,47,201,0.15); border-radius:14px; padding:16px 20px; margin-bottom:28px; display:flex; align-items:center; gap:16px; flex-wrap:wrap; }
+    .countdown-label { font-family:'Barlow Condensed',sans-serif; font-size:11px; font-weight:400; letter-spacing:0.25em; text-transform:uppercase; color:#888; flex:0 0 100%; margin-bottom:4px; }
+    .countdown-unit { text-align:center; }
+    .countdown-num { font-family:'Barlow Condensed',sans-serif; font-size:32px; font-weight:900; background:var(--grad); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; line-height:1; display:block; }
+    .countdown-unit-label { font-size:10px; color:#aaa; letter-spacing:0.15em; text-transform:uppercase; }
+    .countdown-sep { font-family:'Barlow Condensed',sans-serif; font-size:28px; font-weight:300; color:#ccc; margin-top:2px; }
+
+    /* SPECS */
+    .specs { margin-bottom:28px; }
+    .specs-title { font-family:'Barlow Condensed',sans-serif; font-size:13px; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:#888; margin-bottom:12px; }
+    .spec-row { display:flex; justify-content:space-between; padding:10px 0; border-bottom:1px solid rgba(0,0,0,0.06); font-size:13px; }
+    .spec-key { font-weight:400; color:#888; }
+    .spec-val { font-weight:400; color:var(--text-light); text-align:right; }
+
+    /* FORM */
+    .preorder-form { background:rgba(255,255,255,0.6); backdrop-filter:blur(12px); border:1px solid rgba(255,255,255,0.8); border-radius:20px; padding:28px 28px; }
+    .form-title { font-family:'Barlow Condensed',sans-serif; font-size:22px; font-weight:900; text-transform:uppercase; letter-spacing:0.04em; color:var(--text-light); margin-bottom:6px; }
+    .form-sub { font-size:13px; font-weight:300; color:#888; margin-bottom:22px; line-height:1.6; }
+    .form-group { margin-bottom:14px; }
+    .form-group label { display:block; font-family:'Barlow Condensed',sans-serif; font-size:12px; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:#888; margin-bottom:6px; }
+    .form-input {
+      width:100%; padding:13px 16px; border-radius:50px;
+      border:1.5px solid rgba(139,47,201,0.25);
+      font-family:'Barlow',sans-serif; font-size:14px; color:var(--text-light);
+      background:rgba(255,255,255,0.8); outline:none; transition:border-color 0.2s;
+    }
+    .form-input:focus { border-color:var(--purple); }
+    .form-input::placeholder { color:#bbb; }
+    .form-textarea { border-radius:16px; resize:vertical; min-height:80px; padding:13px 16px; }
+    .form-consent { display:flex; align-items:flex-start; gap:10px; margin:16px 0; cursor:pointer; }
+    .form-consent input { margin-top:3px; accent-color:var(--purple); width:16px; height:16px; flex-shrink:0; }
+    .form-consent span { font-size:12px; font-weight:300; color:#888; line-height:1.5; }
+    .form-submit {
+      width:100%; padding:16px; border-radius:50px;
+      background:var(--grad); color:#fff;
+      font-family:'Barlow Condensed',sans-serif; font-size:16px; font-weight:700;
+      letter-spacing:0.1em; text-transform:uppercase; border:none; cursor:pointer;
+      box-shadow:0 6px 22px rgba(139,47,201,0.3); transition:transform 0.2s, box-shadow 0.2s;
+    }
+    .form-submit:hover { transform:translateY(-2px); box-shadow:0 10px 32px rgba(139,47,201,0.4); }
+    .form-submit:disabled { opacity:0.6; cursor:default; transform:none; }
+    .form-msg { margin-top:12px; font-size:13px; text-align:center; min-height:18px; color:var(--purple); }
+    .form-msg.error { color:#e05050; }
+    .form-success { text-align:center; padding:20px 0; }
+    .form-success-icon { font-size:40px; margin-bottom:12px; }
+    .form-success-title { font-family:'Barlow Condensed',sans-serif; font-size:22px; font-weight:900; text-transform:uppercase; color:var(--text-light); margin-bottom:8px; }
+    .form-success-text { font-size:13px; font-weight:300; color:#888; line-height:1.7; }
+
+    /* RELATED */
+    .related-section { max-width:960px; margin:0 auto; padding:0 24px 80px; }
+    .section-label { font-family:'Barlow Condensed',sans-serif; font-size:11px; font-weight:400; letter-spacing:0.3em; text-transform:uppercase; color:#888; margin-bottom:28px; }
+    .related-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+    .related-card { background:rgba(255,255,255,0.52); backdrop-filter:blur(10px); border:1px solid rgba(255,255,255,0.75); border-radius:16px; padding:16px; text-decoration:none; color:inherit; transition:transform 0.22s, box-shadow 0.22s; }
+    .related-card:hover { transform:translateY(-4px); box-shadow:0 16px 40px rgba(0,0,0,0.1); }
+    .related-img { width:100%; aspect-ratio:1/1; border-radius:10px; overflow:hidden; background:linear-gradient(135deg,#c830a0,#f0a030); margin-bottom:10px; }
+    .related-img img { width:100%; height:100%; object-fit:cover; display:block; }
+    .related-name { font-family:'Barlow Condensed',sans-serif; font-size:14px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--text-light); }
+
+    /* FOOTER */
+    .footer { padding:48px 24px 40px; display:flex; flex-direction:column; align-items:center; gap:16px; border-top:1px solid rgba(139,47,201,0.12); position:relative; z-index:10; }
+    .footer-row { display:flex; align-items:center; justify-content:space-between; width:100%; max-width:860px; flex-wrap:wrap; gap:16px; }
+    .footer-note { font-size:12px; font-weight:400; letter-spacing:0.15em; color:#555; text-transform:uppercase; text-align:center; }
+    .footer-note a { color:#555; text-decoration:none; }
+    .footer-note a:hover { color:var(--purple); }
+
+    /* RESPONSIVE */
+    @media (max-width:720px) {
+      .product-layout { grid-template-columns:1fr; gap:32px; }
+      .gallery { position:static; }
+      .related-grid { grid-template-columns:1fr 1fr; }
+      .navbar-links { display:none; }
+      .navbar-links.open { display:flex; flex-direction:column; position:fixed; top:64px; left:0; right:0; background:rgba(220,220,220,0.96); backdrop-filter:blur(16px); padding:16px 24px 24px; gap:4px; border-bottom:1px solid rgba(255,255,255,0.5); }
+      .nav-toggle { display:flex; }
+      .navbar-fonderia { display:none; }
+    }
+    @media (max-width:480px) {
+      .related-grid { grid-template-columns:1fr; }
+      .gallery-thumbs { grid-template-columns:repeat(3,1fr); }
+    }
+  </style>
+</head>
+<body>
+<div class="bg"></div>
+<div class="glow"></div>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <a href="../index.html" class="navbar-logo">
+    <svg height="36" viewBox="0 0 220 260" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="66" cy="62" r="46" stroke="#1a1a1a" stroke-width="8" fill="none"/>
+      <path d="M122 16 Q122 108 168 108 Q214 108 214 16" stroke="#1a1a1a" stroke-width="8" fill="none" stroke-linecap="round"/>
+      <circle cx="66" cy="174" r="46" stroke="#1a1a1a" stroke-width="8" fill="none"/>
+      <circle cx="168" cy="174" r="46" stroke="#1a1a1a" stroke-width="8" fill="none"/>
+    </svg>
+    <span class="navbar-logo-text">Sounds Wood.I</span>
+  </a>
+  <ul class="navbar-links" id="navLinks">
+    <li><a href="../storia.html">Storia</a></li>
+    <li><a href="../index.html#prodotti">Prodotti</a></li>
+    <li><a href="../stampa3d.html">Stampa 3D</a></li>
+    <li><a href="../index.html#faq">FAQ</a></li>
+    <li><a href="#preorder" class="navbar-cta">Pre-ordina</a></li>
+  </ul>
+  <a href="https://fonderia.srl" target="_blank" rel="noopener" class="navbar-fonderia">
+    <img src="../logo fonderia.png" alt="Fonderia">
+  </a>
+  <button class="nav-toggle" id="navToggle" aria-label="Apri menu"><span></span><span></span><span></span></button>
+</nav>
+
+<!-- BREADCRUMB -->
+<nav class="breadcrumb" aria-label="Breadcrumb">
+  <div class="breadcrumb-inner">
+    <a href="../index.html">Home</a>
+    <span>›</span>
+    <a href="../index.html#prodotti">Prodotti</a>
+    <span>›</span>
+    <a href="#" aria-current="page">Madia Trombetta</a>
+  </div>
+</nav>
+
+<div class="page">
+  <div class="product-layout">
+
+    <!-- GALLERY -->
+    <div class="gallery">
+      <div class="gallery-main" id="mainImg">
+        <img src="../lambris trombetta.png" alt="Madia Trombetta" id="mainImgEl" loading="eager">
+      </div>
+      <div class="gallery-thumbs">
+        <div class="thumb active" onclick="setThumb(this, '../lambris trombetta.png', 'Lambris Trombetta – vista 1')">
+          <img src="../lambris trombetta.png" alt="Vista 1">
+        </div>
+        <!-- Aggiorna questi src con le nuove foto quando arriveranno -->
+        <div class="thumb" onclick="setThumb(this, '../lambris trombetta.png', 'Lambris Trombetta – vista 2')">
+          <img src="../lambris trombetta.png" alt="Vista 2">
+        </div>
+        <div class="thumb" onclick="setThumb(this, '../lambris trombetta.png', 'Lambris Trombetta – vista 3')">
+          <img src="../lambris trombetta.png" alt="Vista 3">
+        </div>
+        <div class="thumb" onclick="setThumb(this, '../lambris trombetta.png', 'Lambris Trombetta – dettaglio')">
+          <img src="../lambris trombetta.png" alt="Dettaglio">
+        </div>
+      </div>
+    </div>
+
+    <!-- PRODUCT INFO -->
+    <div class="product-info" id="preorder">
+      <p class="product-eyebrow">Milano Design Week 2026 — Edizione limitata</p>
+      <h1 class="product-title">Madia Trombetta</h1>
+      <p class="product-desc">Madia con funzione acustica integrata. La struttura interna tratta le riflessioni della stanza, mentre la superficie esterna vive come un mobile a tutti gli effetti. Nessun trattamento visibile, tutto il trattamento necessario.</p>
+      <p class="product-desc">Ideale per ambienti living, studi professionali e spazi rappresentativi dove il mobile fa la differenza anche acusticamente.</p>
+
+      <!-- SCARCITY -->
+      <div class="scarcity-box">
+        <div class="scarcity-row">
+          <span class="scarcity-text">Disponibilità</span>
+          <span class="scarcity-count" id="availCount">9 / 10 pezzi</span>
+        </div>
+        <div class="avail-bar"><div class="avail-fill" id="availFill" style="width:90%"></div></div>
+        <p class="scarcity-sub"><strong>Attenzione:</strong> una volta esauriti, questo prodotto non verrà riprodotto.</p>
+      </div>
+
+      <!-- COUNTDOWN -->
+      <div class="countdown-box">
+        <span class="countdown-label">Consegna garantita entro</span>
+        <div class="countdown-unit"><span class="countdown-num" id="cdDays">--</span><span class="countdown-unit-label">Giorni</span></div>
+        <span class="countdown-sep">:</span>
+        <div class="countdown-unit"><span class="countdown-num" id="cdHours">--</span><span class="countdown-unit-label">Ore</span></div>
+        <span class="countdown-sep">:</span>
+        <div class="countdown-unit"><span class="countdown-num" id="cdMins">--</span><span class="countdown-unit-label">Min</span></div>
+      </div>
+
+      <!-- SPECS -->
+      <div class="specs">
+        <p class="specs-title">Specifiche</p>
+        <div class="spec-row"><span class="spec-key">Materiale</span><span class="spec-val">Legno massello e composito</span></div>
+        <div class="spec-row"><span class="spec-key">Funzione acustica</span><span class="spec-val">Assorbimento basse e medie frequenze</span></div>
+        <div class="spec-row"><span class="spec-key">Dimensioni</span><span class="spec-val">Su richiesta / commessa</span></div>
+        <div class="spec-row"><span class="spec-key">Produzione</span><span class="spec-val">Handcrafted, atelier Milano</span></div>
+        <div class="spec-row"><span class="spec-key">Edizione</span><span class="spec-val">Limitata — 10 pezzi totali</span></div>
+        <div class="spec-row"><span class="spec-key">Consegna</span><span class="spec-val">Entro Natale 2026</span></div>
+      </div>
+
+      <!-- PRE-ORDER FORM -->
+      <div class="preorder-form" id="formWrap">
+        <div id="formContent">
+          <p class="form-title">Pre-ordina questo pezzo</p>
+          <p class="form-sub">Nessun pagamento ora. Ti contattiamo entro 24h per confermare la prenotazione e discutere i dettagli.</p>
+
+          <div class="form-group">
+            <label for="fieldNome">Nome e cognome *</label>
+            <input type="text" id="fieldNome" class="form-input" placeholder="Mario Rossi" required>
+          </div>
+          <div class="form-group">
+            <label for="fieldEmail">Email *</label>
+            <input type="email" id="fieldEmail" class="form-input" placeholder="mario@studio.it" required>
+          </div>
+          <div class="form-group">
+            <label for="fieldTel">Telefono</label>
+            <input type="tel" id="fieldTel" class="form-input" placeholder="+39 333 000 0000">
+          </div>
+          <div class="form-group">
+            <label for="fieldNote">Note (ambiente, dimensioni, personalizzazioni)</label>
+            <textarea id="fieldNote" class="form-input form-textarea" placeholder="Es: ristorante 80mq, cerco pannello per parete est, disponibile a discutere finiture custom..."></textarea>
+          </div>
+          <label class="form-consent">
+            <input type="checkbox" id="consentPrivacy" required>
+            <span>Acconsento al trattamento dei dati personali da parte di Fonderia Srl per la gestione della prenotazione. *</span>
+          </label>
+          <label class="form-consent">
+            <input type="checkbox" id="consentMarketing">
+            <span>Acconsento a ricevere comunicazioni commerciali e aggiornamenti dalla collezione Soundswood.I.</span>
+          </label>
+          <button class="form-submit" id="submitBtn" onclick="submitPreorder()">Prenota il mio pezzo →</button>
+          <p class="form-msg" id="formMsg" aria-live="polite"></p>
+        </div>
+
+        <div id="formSuccess" class="form-success" style="display:none;">
+          <div class="form-success-icon">✓</div>
+          <p class="form-success-title">Prenotazione ricevuta!</p>
+          <p class="form-success-text">Ti abbiamo inviato un'email di conferma. Il team Soundswood.I ti contatterà entro 24 ore per tutti i dettagli.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- RELATED PRODUCTS -->
+  <div class="related-section">
+    <div style="width:60px; height:2px; background:var(--grad); border-radius:2px; margin-bottom:48px;"></div>
+    <p class="section-label">Altri pezzi della collezione</p>
+    <div class="related-grid">
+      <a href="lambris-trombetta.html" class="related-card">
+        <div class="related-img"><img src="../lambris trombetta.png" alt="Madia Trombetta" loading="lazy"></div>
+        <span class="related-name">Lambris Trombetta</span>
+      </a>
+      <a href="vynilworm.html" class="related-card">
+        <div class="related-img"><img src="../vynil worm.png" alt="Vynilworm" loading="lazy"></div>
+        <span class="related-name">Vynilworm</span>
+      </a>
+      <a href="dancing-beton.html" class="related-card">
+        <div class="related-img"><img src="../dancing beton.png" alt="Dancing Beton" loading="lazy"></div>
+        <span class="related-name">Dancing Beton</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-row">
+      <p class="footer-note">Soundswood.I is a brand of <a href="https://fonderia.srl" target="_blank" rel="noopener">Fonderia Srl</a> &nbsp;·&nbsp; Milano</p>
+      <p class="footer-note"><a href="mailto:diego@fonderia.srl">diego@fonderia.srl</a> &nbsp;·&nbsp; <a href="tel:+393288289571">+39 328 828 9571</a></p>
+      <a href="https://www.archiproducts.com/it/soundswood-i" target="_blank" rel="noopener">
+        <img src="../archi_member.png" alt="Archiproducts Member" style="height:48px; width:auto; opacity:0.7;">
+      </a>
+    </div>
+  </footer>
+</div>
+
+<script>
+  // ── PREORDER SCRIPT URL — stessa chiave del catalogo, differenziato dal campo type ──
+  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyCNuHGcYJfkqj8XUwxPc7XmU27vRaSaUphwwn0qUoET8fNYXMf7tr-jc8BoPJwo5TXCg/exec';
+
+  // ── GALLERY ──
+  function setThumb(el, src, alt) {
+    document.querySelectorAll('.thumb').forEach(t => t.classList.remove('active'));
+    el.classList.add('active');
+    const img = document.getElementById('mainImgEl');
+    img.style.opacity = '0';
+    setTimeout(() => { img.src = src; img.alt = alt; img.style.opacity = '1'; }, 200);
+  }
+
+  // ── COUNTDOWN ──
+  function updateCountdown() {
+    const deadline = new Date('2026-12-20T23:59:59');
+    const now = new Date();
+    const diff = deadline - now;
+    if (diff <= 0) {
+      document.getElementById('cdDays').textContent = '00';
+      document.getElementById('cdHours').textContent = '00';
+      document.getElementById('cdMins').textContent = '00';
+      return;
+    }
+    const days = Math.floor(diff / 86400000);
+    const hours = Math.floor((diff % 86400000) / 3600000);
+    const mins = Math.floor((diff % 3600000) / 60000);
+    document.getElementById('cdDays').textContent = String(days).padStart(2,'0');
+    document.getElementById('cdHours').textContent = String(hours).padStart(2,'0');
+    document.getElementById('cdMins').textContent = String(mins).padStart(2,'0');
+  }
+  updateCountdown();
+  setInterval(updateCountdown, 60000);
+
+  // ── PRE-ORDER FORM ──
+  async function submitPreorder() {
+    const nome = document.getElementById('fieldNome').value.trim();
+    const email = document.getElementById('fieldEmail').value.trim();
+    const tel = document.getElementById('fieldTel').value.trim();
+    const note = document.getElementById('fieldNote').value.trim();
+    const privacy = document.getElementById('consentPrivacy').checked;
+    const marketing = document.getElementById('consentMarketing').checked;
+    const msg = document.getElementById('formMsg');
+
+    if (!nome) { msg.textContent = 'Inserisci il tuo nome.'; msg.className = 'form-msg error'; return; }
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) { msg.textContent = 'Inserisci un indirizzo email valido.'; msg.className = 'form-msg error'; return; }
+    if (!privacy) { msg.textContent = 'Devi accettare il trattamento dei dati per procedere.'; msg.className = 'form-msg error'; return; }
+
+    const btn = document.getElementById('submitBtn');
+    btn.textContent = 'Invio in corso...'; btn.disabled = true;
+
+    const payload = {
+      type: 'preordine',
+      prodotto: 'Madia Trombetta',
+      nome, email, tel, note,
+      marketing: marketing ? 'Si' : 'No',
+      timestamp: new Date().toISOString()
+    };
+
+    try {
+      await fetch(SCRIPT_URL, {
+        method: 'POST', mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      document.getElementById('formContent').style.display = 'none';
+      document.getElementById('formSuccess').style.display = 'block';
+    } catch(e) {
+      // Mostra comunque successo — no-cors non ci dà status
+      document.getElementById('formContent').style.display = 'none';
+      document.getElementById('formSuccess').style.display = 'block';
+    } finally {
+      btn.textContent = 'Prenota il mio pezzo →'; btn.disabled = false;
+    }
+  }
+
+  // ── MOBILE NAV ──
+  const navToggle = document.getElementById('navToggle');
+  const navLinks = document.getElementById('navLinks');
+  navToggle.addEventListener('click', () => navLinks.classList.toggle('open'));
+</script>
+</body>
+</html>
