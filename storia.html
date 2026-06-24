@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>La nostra storia – Soundswood.I | Design acustico Milano</title>
+  <meta name="description" content="Soundswood.I nasce a Milano dall'incontro tra Fonderia Srl e la ricerca sul suono negli spazi di design. La storia di un brand che tratta il silenzio come materiale di progetto.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;700;900&family=Barlow:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --purple:#8B2FC9; --pink:#C4308A; --orange:#E89040; --gold:#F0B030;
+      --text-light:#1a1a1a; --text-muted:#666;
+      --grad:linear-gradient(90deg,#8B2FC9 0%,#C4308A 28%,#D95070 45%,#E07060 60%,#E89040 80%,#F0B030 100%);
+    }
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+    html{scroll-behavior:smooth;}
+    html,body{width:100%;font-family:'Barlow',sans-serif;}
+    body{background-color:#d0d0d0;overflow-x:hidden;}
+    .bg{position:fixed;inset:0;z-index:0;background:radial-gradient(ellipse 65% 65% at 50% 45%,rgba(255,255,255,0.88) 0%,transparent 70%),radial-gradient(ellipse 38% 80% at 5% 50%,rgba(190,190,190,0.7) 0%,transparent 60%),radial-gradient(ellipse 38% 80% at 95% 50%,rgba(190,190,190,0.7) 0%,transparent 60%),linear-gradient(135deg,#b8b8b8 0%,#dcdcdc 40%,#f0f0f0 50%,#e0e0e0 60%,#c0c0c0 100%);}
+    .bg::after{content:'';position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:180px 180px;opacity:0.17;mix-blend-mode:multiply;pointer-events:none;}
+    .glow{position:fixed;inset:0;z-index:0;background:radial-gradient(ellipse 50% 50% at 50% 46%,rgba(255,255,255,0.9) 0%,rgba(255,255,255,0.3) 45%,transparent 70%);pointer-events:none;}
+
+    /* NAVBAR */
+    .navbar{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:0 32px;height:64px;background:rgba(220,220,220,0.72);backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,0.5);}
+    .navbar-logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
+    .navbar-logo svg{height:36px;width:auto;}
+    .navbar-logo-text{font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-light);}
+    .navbar-links{display:flex;align-items:center;gap:4px;list-style:none;}
+    .navbar-links a{font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#555;text-decoration:none;padding:8px 14px;border-radius:50px;transition:color 0.2s,background 0.2s;}
+    .navbar-links a:hover{color:var(--text-light);background:rgba(255,255,255,0.5);}
+    .navbar-cta{background:var(--grad) !important;color:#fff !important;padding:9px 20px !important;border-radius:50px !important;}
+    .navbar-fonderia img{height:40px;width:auto;opacity:0.75;transition:opacity 0.2s;}
+    .nav-toggle{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:8px;background:none;border:none;}
+    .nav-toggle span{display:block;width:22px;height:2px;background:var(--text-light);border-radius:2px;}
+
+    /* PAGE */
+    .page{position:relative;z-index:10;padding-top:64px;}
+
+    /* HERO */
+    .story-hero{padding:80px 24px 64px;display:flex;flex-direction:column;align-items:center;text-align:center;}
+    .story-eyebrow{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:400;letter-spacing:0.3em;text-transform:uppercase;color:#888;margin-bottom:16px;opacity:0;animation:fadeIn 0.6s ease forwards 0.2s;}
+    .story-title{font-family:'Barlow Condensed',sans-serif;font-size:clamp(56px,9vw,120px);font-weight:900;text-transform:uppercase;letter-spacing:-0.01em;line-height:0.9;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:24px;opacity:0;animation:fadeUp 0.8s ease forwards 0.3s;}
+    .story-lead{font-size:18px;font-weight:300;color:#555;line-height:1.8;max-width:640px;opacity:0;animation:fadeUp 0.8s ease forwards 0.5s;}
+
+    /* CONTENT */
+    .story-content{max-width:860px;margin:0 auto;padding:0 24px 80px;}
+    .divider{width:60px;height:2px;background:var(--grad);border-radius:2px;margin:48px auto;}
+
+    /* CHAPTER */
+    .chapter{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;margin-bottom:80px;}
+    .chapter.reverse{direction:rtl;}
+    .chapter.reverse > *{direction:ltr;}
+    .chapter-text{}
+    .chapter-label{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:400;letter-spacing:0.3em;text-transform:uppercase;color:#888;margin-bottom:10px;}
+    .chapter-title{font-family:'Barlow Condensed',sans-serif;font-size:clamp(28px,3.5vw,44px);font-weight:900;text-transform:uppercase;line-height:1;color:var(--text-light);margin-bottom:16px;}
+    .chapter-title span{background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+    .chapter-body{font-size:15px;font-weight:300;color:#555;line-height:1.85;}
+    .chapter-body p{margin-bottom:14px;}
+    .chapter-img{border-radius:20px;overflow:hidden;background:linear-gradient(135deg,#c830a0,#f0a030);aspect-ratio:4/3;}
+    .chapter-img img{width:100%;height:100%;object-fit:cover;display:block;}
+
+    /* QUOTE */
+    .quote-block{background:rgba(255,255,255,0.45);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.75);border-radius:20px;padding:40px 48px;margin:0 0 80px;text-align:center;}
+    .quote-text{font-family:'Barlow Condensed',sans-serif;font-size:clamp(22px,3vw,34px);font-weight:700;text-transform:uppercase;letter-spacing:0.04em;line-height:1.2;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:16px;}
+    .quote-attr{font-size:13px;font-weight:300;color:#888;letter-spacing:0.1em;text-transform:uppercase;}
+
+    /* MDW SECTION */
+    .mdw-section{background:rgba(255,255,255,0.45);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.75);border-radius:20px;padding:40px;margin-bottom:80px;display:grid;grid-template-columns:auto 1fr;gap:40px;align-items:center;}
+    .mdw-badge{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:400;letter-spacing:0.3em;text-transform:uppercase;color:#888;margin-bottom:8px;}
+    .mdw-title{font-family:'Barlow Condensed',sans-serif;font-size:clamp(24px,3vw,36px);font-weight:900;text-transform:uppercase;line-height:1;color:var(--text-light);margin-bottom:12px;}
+    .mdw-title span{background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+    .mdw-body{font-size:14px;font-weight:300;color:#555;line-height:1.8;}
+    .mdw-img{width:200px;aspect-ratio:1/1;border-radius:16px;overflow:hidden;background:linear-gradient(135deg,#c830a0,#f0a030);}
+    .mdw-img img{width:100%;height:100%;object-fit:cover;display:block;}
+
+    /* PRESS */
+    .press-row{display:flex;align-items:center;gap:24px;flex-wrap:wrap;justify-content:center;margin-bottom:80px;}
+    .press-item{display:flex;flex-direction:column;align-items:center;gap:8px;}
+    .press-badge{background:rgba(255,255,255,0.55);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.75);border-radius:12px;padding:12px 20px;}
+    .press-badge img{height:40px;width:auto;opacity:0.7;}
+    .press-label{font-size:11px;color:#aaa;letter-spacing:0.15em;text-transform:uppercase;}
+
+    /* CTA */
+    .story-cta{text-align:center;padding:0 0 80px;}
+    .btn{display:inline-flex;align-items:center;gap:10px;padding:16px 32px;border-radius:50px;font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;text-decoration:none;cursor:pointer;transition:transform 0.2s,box-shadow 0.2s;border:none;}
+    .btn:hover{transform:translateY(-3px);box-shadow:0 14px 36px rgba(0,0,0,0.18);}
+    .btn-primary{background:var(--grad);color:#fff;box-shadow:0 6px 20px rgba(139,47,201,0.3);}
+    .btn-outline{background:rgba(255,255,255,0.6);backdrop-filter:blur(10px);color:var(--text-light);border:1.5px solid rgba(139,47,201,0.35);}
+
+    /* FOOTER */
+    .footer{padding:48px 24px 40px;display:flex;flex-direction:column;align-items:center;gap:16px;border-top:1px solid rgba(139,47,201,0.12);}
+    .footer-row{display:flex;align-items:center;justify-content:space-between;width:100%;max-width:860px;flex-wrap:wrap;gap:16px;}
+    .footer-note{font-size:12px;font-weight:400;letter-spacing:0.15em;color:#555;text-transform:uppercase;text-align:center;}
+    .footer-note a{color:#555;text-decoration:none;}
+    .footer-note a:hover{color:var(--purple);}
+
+    /* ANIMATIONS */
+    @keyframes fadeUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
+    @keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+
+    @media(max-width:680px){
+      .chapter,.mdw-section{grid-template-columns:1fr;}
+      .chapter.reverse{direction:ltr;}
+      .mdw-img{width:100%;aspect-ratio:16/9;}
+      .quote-block{padding:28px 24px;}
+      .navbar-links{display:none;}
+      .navbar-links.open{display:flex;flex-direction:column;position:fixed;top:64px;left:0;right:0;background:rgba(220,220,220,0.96);backdrop-filter:blur(16px);padding:16px 24px 24px;gap:4px;border-bottom:1px solid rgba(255,255,255,0.5);}
+      .nav-toggle{display:flex;}
+      .navbar-fonderia{display:none;}
+    }
+  </style>
+</head>
+<body>
+<div class="bg"></div>
+<div class="glow"></div>
+
+<nav class="navbar">
+  <a href="index.html" class="navbar-logo">
+    <svg height="36" viewBox="0 0 220 260" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="66" cy="62" r="46" stroke="#1a1a1a" stroke-width="8" fill="none"/>
+      <path d="M122 16 Q122 108 168 108 Q214 108 214 16" stroke="#1a1a1a" stroke-width="8" fill="none" stroke-linecap="round"/>
+      <circle cx="66" cy="174" r="46" stroke="#1a1a1a" stroke-width="8" fill="none"/>
+      <circle cx="168" cy="174" r="46" stroke="#1a1a1a" stroke-width="8" fill="none"/>
+    </svg>
+    <span class="navbar-logo-text">Sounds Wood.I</span>
+  </a>
+  <ul class="navbar-links" id="navLinks">
+    <li><a href="storia.html" aria-current="page">Storia</a></li>
+    <li><a href="index.html#prodotti">Prodotti</a></li>
+    <li><a href="stampa3d.html">Stampa 3D</a></li>
+    <li><a href="index.html#faq">FAQ</a></li>
+    <li><a href="index.html#prodotti" class="navbar-cta">Pre-ordina</a></li>
+  </ul>
+  <a href="https://fonderia.srl" target="_blank" rel="noopener" class="navbar-fonderia">
+    <img src="logo fonderia.png" alt="Fonderia">
+  </a>
+  <button class="nav-toggle" id="navToggle" aria-label="Apri menu"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="page">
+  <header class="story-hero">
+    <p class="story-eyebrow">Chi siamo — Fonderia Srl · Milano</p>
+    <h1 class="story-title">La nostra<br>storia.</h1>
+    <p class="story-lead">Soundswood.I è nata dall'incontro tra il design industriale e una domanda semplice: perché gli oggetti che trattano il suono devono sembrare trattamenti acustici?</p>
+  </header>
+
+  <div class="story-content">
+
+    <!-- CHAPTER 1 -->
+    <div class="chapter">
+      <div class="chapter-text">
+        <p class="chapter-label">Le origini</p>
+        <h2 class="chapter-title">Fonderia:<br>dove tutto <span>inizia</span></h2>
+        <div class="chapter-body">
+          <p>Fonderia Srl nasce come laboratorio artigianale di prototipazione e produzione a Milano. Stampa 3D, lavorazione del legno, materiali compositi: il punto di incontro tra tecnologia di produzione e senso estetico del progetto.</p>
+          <p>Nel tempo, lavorando con studi di architettura e interior designer, è emersa una costante: gli spazi di design hanno problemi acustici che le soluzioni tecniche disponibili non riescono a risolvere senza compromettere l'estetica.</p>
+        </div>
+      </div>
+      <div class="chapter-img">
+        <img src="lambris trombetta.png" alt="Atelier Fonderia Milano" loading="lazy">
+      </div>
+    </div>
+
+    <!-- QUOTE -->
+    <div class="quote-block">
+      <p class="quote-text">"Il suono è un materiale di progetto. Non un problema da risolvere dopo."</p>
+      <p class="quote-attr">— Diego, Fonderia Srl</p>
+    </div>
+
+    <!-- CHAPTER 2 -->
+    <div class="chapter reverse">
+      <div class="chapter-text">
+        <p class="chapter-label">La svolta</p>
+        <h2 class="chapter-title">Design che <span>tratta il suono</span> senza dichiararlo</h2>
+        <div class="chapter-body">
+          <p>L'idea di Soundswood.I è semplice nella formulazione, complessa nell'esecuzione: progettare oggetti di arredo che abbiano una funzione acustica integrata nella forma e nel materiale — non aggiunta come layer tecnico, ma costitutiva del progetto.</p>
+          <p>Non pannelli fonoassorbenti che sembrano pannelli fonoassorbenti. Madie, librerie, pannelli da parete, sculture: oggetti che si comportano come devono comportarsi acusticamente, e si mostrano come vogliono essere visti.</p>
+        </div>
+      </div>
+      <div class="chapter-img">
+        <img src="madia trombetta.png" alt="Madia Trombetta – design acustico" loading="lazy">
+      </div>
+    </div>
+
+    <!-- CHAPTER 3 -->
+    <div class="chapter">
+      <div class="chapter-text">
+        <p class="chapter-label">Il metodo</p>
+        <h2 class="chapter-title">Handcrafted,<br>a <span>Milano</span></h2>
+        <div class="chapter-body">
+          <p>Ogni pezzo della collezione viene progettato, prototipato e prodotto nel nostro atelier di Via Pasquale Paoli. Stampa 3D di alta precisione, lavorazione del legno, materiali compositi su misura: processi industriali al servizio di oggetti singolari.</p>
+          <p>Il limite di 10 pezzi per prodotto non è un device di marketing: è il limite reale di quello che possiamo fare bene. Ogni pezzo riceve lo stesso livello di attenzione del prototipo.</p>
+        </div>
+      </div>
+      <div class="chapter-img">
+        <img src="vynilworm.png" alt="Vynilworm – scultura acustica" loading="lazy">
+      </div>
+    </div>
+
+    <!-- MDW SECTION -->
+    <div class="mdw-section">
+      <div class="mdw-img">
+        <img src="tape monster.png" alt="Tape Monster – Milano Design Week 2026" loading="lazy">
+      </div>
+      <div>
+        <p class="mdw-badge">Milano Design Week 2026</p>
+        <h2 class="mdw-title">Il debutto:<br><span>6 pezzi, 1 storia</span></h2>
+        <p class="mdw-body">La prima collezione Soundswood.I è stata presentata alla Milano Design Week 2026. Sei oggetti, sei approcci diversi alla stessa domanda: come si integra il trattamento acustico in un pezzo di arredo senza che si veda, ma si senta? I riscontri hanno confermato quello che sospettavamo: c'è un mercato per oggetti che suonano bene e si vedono meglio.</p>
+      </div>
+    </div>
+
+    <!-- PRESS -->
+    <div class="press-row">
+      <div class="press-item">
+        <div class="press-badge">
+          <img src="archi_member.png" alt="Archiproducts">
+        </div>
+        <span class="press-label">Membro Archiproducts</span>
+      </div>
+      <div class="press-item">
+        <div class="press-badge" style="padding:16px 24px;">
+          <svg height="28" viewBox="0 0 220 260" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="66" cy="62" r="46" stroke="#1a1a1a" stroke-width="8" fill="none"/>
+            <path d="M122 16 Q122 108 168 108 Q214 108 214 16" stroke="#1a1a1a" stroke-width="8" fill="none" stroke-linecap="round"/>
+            <circle cx="66" cy="174" r="46" stroke="#1a1a1a" stroke-width="8" fill="none"/>
+            <circle cx="168" cy="174" r="46" stroke="#1a1a1a" stroke-width="8" fill="none"/>
+          </svg>
+        </div>
+        <span class="press-label">Fonderia Srl · Milano</span>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="story-cta">
+      <div class="divider" style="margin-bottom:40px;"></div>
+      <p style="font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:0.3em;text-transform:uppercase;color:#888;margin-bottom:20px;">Collezione disponibile ora</p>
+      <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
+        <a href="index.html#prodotti" class="btn btn-primary">Scopri i prodotti →</a>
+        <a href="stampa3d.html" class="btn btn-outline">Service stampa 3D</a>
+      </div>
+    </div>
+
+  </div><!-- /story-content -->
+
+  <footer class="footer">
+    <div class="footer-row">
+      <p class="footer-note">Soundswood.I is a brand of <a href="https://fonderia.srl" target="_blank" rel="noopener">Fonderia Srl</a> &nbsp;·&nbsp; Milano</p>
+      <p class="footer-note"><a href="mailto:diego@fonderia.srl">diego@fonderia.srl</a> &nbsp;·&nbsp; <a href="tel:+393288289571">+39 328 828 9571</a></p>
+      <a href="https://www.archiproducts.com/it/soundswood-i" target="_blank" rel="noopener">
+        <img src="archi_member.png" alt="Archiproducts Member" style="height:48px;width:auto;opacity:0.7;">
+      </a>
+    </div>
+  </footer>
+</div>
+
+<script>
+  const navToggle = document.getElementById('navToggle');
+  const navLinks = document.getElementById('navLinks');
+  navToggle.addEventListener('click', () => navLinks.classList.toggle('open'));
+</script>
+</body>
+</html>
