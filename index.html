@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Soundswood.I – Say It Loud.</title>
+  <title>Soundswood.I – Design acustico handcrafted | Milano</title>
+  <meta name="description" content="Soundswood.I — elementi di arredo con funzione acustica integrata. Design handcrafted, edizione limitata 10 pezzi. Pre-ordini aperti, consegna entro Natale 2026.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;700;900&family=Barlow:wght@300;400&display=swap" rel="stylesheet">
@@ -16,811 +17,896 @@
       --gold: #F0B030;
       --text-light: #1a1a1a;
       --text-muted: #666;
+      --grad: linear-gradient(90deg, #8B2FC9 0%, #C4308A 28%, #D95070 45%, #E07060 60%, #E89040 80%, #F0B030 100%);
     }
-
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    html, body { width: 100%; font-family: 'Barlow', sans-serif; }
+    body { background-color: #d0d0d0; overflow-x: hidden; }
 
-    html, body {
-      width: 100%;
-      min-height: 100vh;
-      font-family: 'Barlow', sans-serif;
-    }
-
-    body {
-      background-color: #d0d0d0;
-      position: relative;
-      overflow-x: hidden;
-    }
-
+    /* ── BACKGROUND ── */
     .bg {
-      position: fixed;
-      inset: 0;
-      z-index: 0;
+      position: fixed; inset: 0; z-index: 0;
       background:
         radial-gradient(ellipse 65% 65% at 50% 45%, rgba(255,255,255,0.88) 0%, transparent 70%),
-        radial-gradient(ellipse 38% 80% at 5% 50%,  rgba(190,190,190,0.7) 0%, transparent 60%),
+        radial-gradient(ellipse 38% 80% at 5% 50%, rgba(190,190,190,0.7) 0%, transparent 60%),
         radial-gradient(ellipse 38% 80% at 95% 50%, rgba(190,190,190,0.7) 0%, transparent 60%),
         linear-gradient(135deg, #b8b8b8 0%, #dcdcdc 40%, #f0f0f0 50%, #e0e0e0 60%, #c0c0c0 100%);
     }
     .bg::after {
-      content: '';
-      position: absolute;
-      inset: 0;
+      content: ''; position: absolute; inset: 0;
       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-      background-size: 180px 180px;
-      opacity: 0.17;
-      mix-blend-mode: multiply;
-      pointer-events: none;
+      background-size: 180px 180px; opacity: 0.17; mix-blend-mode: multiply; pointer-events: none;
     }
     .glow {
-      position: fixed;
-      inset: 0;
-      z-index: 0;
+      position: fixed; inset: 0; z-index: 0;
       background: radial-gradient(ellipse 50% 50% at 50% 46%, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.3) 45%, transparent 70%);
       pointer-events: none;
     }
 
-    /* ── LAYOUT ── */
-    .page {
-      position: relative;
-      z-index: 10;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 60px 24px 80px;
+    /* ── NAVBAR ── */
+    .navbar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 32px; height: 64px;
+      background: rgba(220,220,220,0.72);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(255,255,255,0.5);
+      transition: background 0.3s;
     }
-
-    /* ── FONDERIA LOGO (top-right) ── */
-    .fonderia-link {
-      position: fixed;
-      top: 24px;
-      right: 28px;
-      z-index: 100;
-      opacity: 0;
-      animation: fadeIn 0.6s ease forwards 1.4s;
+    .navbar-logo {
+      display: flex; align-items: center; gap: 10px;
       text-decoration: none;
     }
-    .fonderia-logo-svg {
-      height: 80px;
-      width: auto;
-      transition: transform 0.25s ease, opacity 0.25s ease;
-      opacity: 0.82;
+    .navbar-logo svg { height: 36px; width: auto; }
+    .navbar-logo-text {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 15px; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--text-light);
     }
-    .fonderia-link:hover .fonderia-logo-svg {
-      transform: scale(1.07);
-      opacity: 1;
+    .navbar-links {
+      display: flex; align-items: center; gap: 4px;
+      list-style: none;
     }
+    .navbar-links a {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 13px; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; color: #555; text-decoration: none;
+      padding: 8px 14px; border-radius: 50px;
+      transition: color 0.2s, background 0.2s;
+    }
+    .navbar-links a:hover { color: var(--text-light); background: rgba(255,255,255,0.5); }
+    .navbar-cta {
+      background: var(--grad) !important;
+      color: #fff !important;
+      padding: 9px 20px !important;
+      border-radius: 50px !important;
+      box-shadow: 0 4px 14px rgba(139,47,201,0.28);
+    }
+    .navbar-cta:hover { opacity: 0.9; box-shadow: 0 6px 20px rgba(139,47,201,0.38) !important; }
+    .navbar-fonderia { display: flex; align-items: center; }
+    .navbar-fonderia img { height: 40px; width: auto; opacity: 0.75; transition: opacity 0.2s; }
+    .navbar-fonderia img:hover { opacity: 1; }
 
-    /* ── HERO ── */
-    .hero {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin-bottom: 52px;
-    }
+    /* hamburger mobile */
+    .nav-toggle { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 8px; background: none; border: none; }
+    .nav-toggle span { display: block; width: 22px; height: 2px; background: var(--text-light); border-radius: 2px; transition: all 0.3s; }
 
-    .logo-wrap {
-      opacity: 0;
-      animation: fadeDown 0.8s ease forwards 0.2s;
+    /* ── PAGE ── */
+    .page { position: relative; z-index: 10; padding-top: 64px; }
+
+    /* ── HERO SLIDER ── */
+    .hero-slider {
+      position: relative; width: 100%; height: calc(100vh - 64px); min-height: 500px;
+      overflow: hidden;
+    }
+    .slide {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      opacity: 0; transition: opacity 0.8s ease; pointer-events: none;
+      padding: 40px 24px;
+    }
+    .slide.active { opacity: 1; pointer-events: auto; }
+    .slide-img-wrap {
+      width: min(340px, 72vw); aspect-ratio: 1/1;
+      border-radius: 20px; overflow: hidden;
+      background: linear-gradient(135deg, #c830a0, #f0a030);
+      margin-bottom: 28px;
+      box-shadow: 0 32px 80px rgba(0,0,0,0.18);
+    }
+    .slide-img-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .slide-number {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 11px; font-weight: 400; letter-spacing: 0.35em;
+      text-transform: uppercase; color: #888; margin-bottom: 8px;
+    }
+    .slide-name {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: clamp(36px, 7vw, 72px); font-weight: 900;
+      text-transform: uppercase; letter-spacing: 0.02em;
+      background: var(--grad);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      text-align: center; line-height: 1;
       margin-bottom: 10px;
     }
-
-    .tagline {
+    .slide-claim {
+      font-family: 'Barlow', sans-serif; font-size: 14px; font-weight: 300;
+      color: #666; text-align: center; max-width: 320px; line-height: 1.7;
+      margin-bottom: 28px;
+    }
+    .slide-cta {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 13px 28px; border-radius: 50px;
+      background: var(--grad); color: #fff;
       font-family: 'Barlow Condensed', sans-serif;
-      font-size: clamp(68px, 11vw, 148px);
-      font-weight: 900;
-      text-transform: uppercase;
-      letter-spacing: -0.01em;
-      line-height: 0.92;
-      background: linear-gradient(90deg,
-        #8B2FC9 0%, #C4308A 28%, #D95070 45%,
-        #E07060 60%, #E89040 80%, #F0B030 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      opacity: 0;
-      animation: fadeUp 0.9s cubic-bezier(0.16,1,0.3,1) forwards 0.4s;
+      font-size: 14px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+      text-decoration: none; box-shadow: 0 6px 22px rgba(139,47,201,0.3);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .slide-cta:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(139,47,201,0.38); }
+
+    /* slider controls */
+    .slider-arrow {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      z-index: 10; background: rgba(255,255,255,0.7); backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,0.8); border-radius: 50%;
+      width: 48px; height: 48px; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .slider-arrow:hover { background: rgba(255,255,255,0.95); transform: translateY(-50%) scale(1.08); }
+    .slider-arrow.prev { left: 24px; }
+    .slider-arrow.next { right: 24px; }
+    .slider-arrow svg { width: 20px; height: 20px; stroke: #333; }
+    .slider-dots {
+      position: absolute; bottom: 24px; left: 50%; transform: translateX(-50%);
+      display: flex; gap: 8px; z-index: 10;
+    }
+    .dot {
+      width: 6px; height: 6px; border-radius: 50%; border: none; padding: 0; cursor: pointer;
+      background: rgba(0,0,0,0.2); transition: all 0.3s;
+    }
+    .dot.active { background: var(--purple); transform: scale(1.4); }
+
+    /* ── HERO BRAND (center top) ── */
+    .hero-brand {
+      position: absolute; top: 32px; left: 50%; transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 4px; z-index: 5;
+      opacity: 0; animation: fadeDown 0.7s ease forwards 0.3s;
+    }
+    .hero-tagline {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: clamp(52px, 10vw, 128px); font-weight: 900;
+      text-transform: uppercase; letter-spacing: -0.01em; line-height: 0.88;
+      background: var(--grad);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
       text-align: center;
+    }
+
+    /* ── SECTION WRAPPER ── */
+    .section { padding: 80px 24px; display: flex; flex-direction: column; align-items: center; }
+    .section-inner { width: 100%; max-width: 860px; }
+    .section-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 11px; font-weight: 400; letter-spacing: 0.3em;
+      text-transform: uppercase; color: #888; text-align: center; margin-bottom: 36px;
     }
 
     /* ── DIVIDER ── */
     .divider {
-      width: 60px;
-      height: 2px;
-      background: linear-gradient(90deg, var(--purple), var(--gold));
-      border-radius: 2px;
-      margin: 40px 0;
-      opacity: 0;
-      animation: fadeIn 0.6s ease forwards 1s;
+      width: 60px; height: 2px;
+      background: var(--grad);
+      border-radius: 2px; margin: 0 auto;
     }
 
-    /* ── PRODUCTS ── */
-    .products-section {
-      opacity: 0;
-      animation: fadeUp 0.8s ease forwards 1.05s;
-      width: 100%;
-      max-width: 860px;
-      margin-bottom: 56px;
-    }
-
-    .products-label {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 11px;
-      font-weight: 400;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      color: #555;
-      text-align: center;
-      margin-bottom: 28px;
-    }
-
+    /* ── PRODUCTS GRID ── */
     .products-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
+      display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;
     }
-
     .product-card {
-      background: rgba(255,255,255,0.52);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255,255,255,0.75);
-      border-radius: 16px;
-      padding: 20px 16px 18px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 12px;
+      background: rgba(255,255,255,0.52); backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.75); border-radius: 20px;
+      padding: 20px 16px 22px;
+      display: flex; flex-direction: column; align-items: center; gap: 12px;
+      text-decoration: none; color: inherit;
       transition: transform 0.22s ease, box-shadow 0.22s ease;
+      position: relative; overflow: hidden;
     }
     .product-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 16px 40px rgba(0,0,0,0.12);
+      transform: translateY(-6px);
+      box-shadow: 0 20px 48px rgba(0,0,0,0.13);
     }
-
     .product-img-wrap {
-      width: 100%;
-      aspect-ratio: 1 / 1;
-      border-radius: 10px;
-      overflow: hidden;
+      width: 100%; aspect-ratio: 1/1; border-radius: 12px; overflow: hidden;
       background: linear-gradient(135deg, #c830a0, #f0a030);
     }
-    .product-img-wrap img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-
+    .product-img-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; }
     .product-name {
       font-family: 'Barlow Condensed', sans-serif;
-      font-size: 15px;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--text-light);
-      text-align: center;
-      line-height: 1.2;
+      font-size: 16px; font-weight: 700; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--text-light); text-align: center;
     }
+    .product-availability {
+      font-size: 11px; font-weight: 400; color: #888; letter-spacing: 0.05em;
+    }
+    .avail-bar {
+      width: 100%; height: 3px; background: rgba(0,0,0,0.08); border-radius: 2px; overflow: hidden;
+    }
+    .avail-fill {
+      height: 100%; border-radius: 2px;
+      background: var(--grad);
+    }
+    .product-badge {
+      position: absolute; top: 14px; right: 14px;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+      background: rgba(139,47,201,0.12); color: var(--purple);
+      padding: 4px 10px; border-radius: 50px;
+    }
+
+    /* ── QUALITY SECTION ── */
+    .quality-section {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center;
+    }
+    .quality-text h2 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: clamp(32px, 4vw, 52px); font-weight: 900;
+      text-transform: uppercase; letter-spacing: 0.02em; line-height: 1;
+      color: var(--text-light); margin-bottom: 16px;
+    }
+    .quality-text h2 span {
+      background: var(--grad);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .quality-text p {
+      font-size: 15px; font-weight: 300; color: #555; line-height: 1.8; margin-bottom: 14px;
+    }
+    .quality-img {
+      width: 100%; aspect-ratio: 4/3; border-radius: 20px; overflow: hidden;
+      background: linear-gradient(135deg, #c830a0, #f0a030);
+    }
+    .quality-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+    /* ── SCARCITY SECTION ── */
+    .scarcity-section {
+      background: rgba(255,255,255,0.45); backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,0.75); border-radius: 24px;
+      padding: 40px 40px; display: grid; grid-template-columns: auto 1fr; gap: 40px; align-items: center;
+    }
+    .scarcity-img {
+      width: 180px; aspect-ratio: 1/1; border-radius: 16px; overflow: hidden;
+      background: linear-gradient(135deg, #c830a0, #f0a030); flex-shrink: 0;
+    }
+    .scarcity-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .scarcity-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 11px; font-weight: 400; letter-spacing: 0.3em;
+      text-transform: uppercase; color: #888; margin-bottom: 8px;
+    }
+    .scarcity-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: clamp(28px, 4vw, 44px); font-weight: 900;
+      text-transform: uppercase; line-height: 1; color: var(--text-light); margin-bottom: 12px;
+    }
+    .scarcity-title span { background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .scarcity-desc { font-size: 14px; font-weight: 300; color: #555; line-height: 1.7; margin-bottom: 20px; }
+    .scarcity-meta {
+      display: flex; align-items: center; gap: 24px; flex-wrap: wrap; margin-bottom: 20px;
+    }
+    .scarcity-stat {
+      display: flex; flex-direction: column;
+    }
+    .scarcity-stat-num {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 28px; font-weight: 900;
+      background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .scarcity-stat-label { font-size: 11px; color: #888; letter-spacing: 0.1em; text-transform: uppercase; }
+    .global-avail-bar {
+      width: 100%; height: 5px; background: rgba(0,0,0,0.08); border-radius: 3px; overflow: hidden; margin-bottom: 8px;
+    }
+    .global-avail-fill { height: 100%; border-radius: 3px; background: var(--grad); transition: width 1s ease; }
+    .scarcity-note { font-size: 11px; color: #888; margin-bottom: 20px; }
+    .scarcity-cta {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 13px 28px; border-radius: 50px;
+      background: var(--grad); color: #fff;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 14px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+      text-decoration: none; box-shadow: 0 6px 22px rgba(139,47,201,0.3);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .scarcity-cta:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(139,47,201,0.38); }
+
+    /* ── STAMPA 3D TEASER ── */
+    .teaser-3d {
+      display: flex; align-items: center; justify-content: space-between; gap: 20px;
+      background: rgba(255,255,255,0.52); backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.75); border-radius: 20px;
+      padding: 24px 32px; text-decoration: none;
+      transition: transform 0.22s ease, box-shadow 0.22s ease;
+    }
+    .teaser-3d:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,0.12); }
+    .teaser-icon {
+      width: 50px; height: 50px; border-radius: 12px;
+      background: var(--grad);
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .teaser-eyebrow {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 10px; font-weight: 400; letter-spacing: 0.3em;
+      text-transform: uppercase; color: #888; margin-bottom: 3px;
+    }
+    .teaser-name {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 22px; font-weight: 900; text-transform: uppercase;
+      letter-spacing: 0.04em; color: var(--text-light); line-height: 1;
+    }
+    .teaser-sub { font-size: 12px; font-weight: 300; color: #888; margin-top: 4px; }
+    .teaser-arrow {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 13px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+      background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      white-space: nowrap; flex-shrink: 0;
+    }
+
+    /* ── FAQ ── */
+    .faq-item { border-bottom: 1px solid rgba(139,47,201,0.15); }
+    .faq-item:first-child { border-top: 1px solid rgba(139,47,201,0.15); }
+    .faq-question {
+      width: 100%; background: none; border: none; cursor: pointer;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 18px 0; gap: 20px;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 16px; font-weight: 700; letter-spacing: 0.06em;
+      text-transform: uppercase; color: var(--text-light); text-align: left;
+      transition: color 0.2s;
+    }
+    .faq-question:hover { color: var(--purple); }
+    .faq-icon {
+      font-size: 22px; font-weight: 300; flex-shrink: 0; line-height: 1;
+      background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      transition: transform 0.3s ease;
+    }
+    .faq-question.open .faq-icon { transform: rotate(45deg); }
+    .faq-answer {
+      font-size: 14px; font-weight: 300; color: var(--text-muted); line-height: 1.8;
+      max-height: 0; overflow: hidden;
+      transition: max-height 0.4s ease, padding 0.3s ease; padding: 0;
+    }
+    .faq-answer.open { max-height: 220px; padding-bottom: 18px; }
 
     /* ── BUTTONS ── */
-    .buttons-section {
-      opacity: 0;
-      animation: fadeUp 0.8s ease forwards 1.15s;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 16px;
-      justify-content: center;
-    }
-
     .btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      padding: 16px 32px;
-      border-radius: 50px;
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 16px 32px; border-radius: 50px;
       font-family: 'Barlow Condensed', sans-serif;
-      font-size: 15px;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      text-decoration: none;
-      cursor: pointer;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-      border: none;
-      outline: none;
+      font-size: 15px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+      text-decoration: none; cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease; border: none; outline: none;
     }
-    .btn:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 14px 36px rgba(0,0,0,0.18);
-    }
-    .btn:active { transform: translateY(-1px); }
-
-    .btn-primary {
-      background: linear-gradient(90deg, var(--purple), var(--pink), var(--orange));
-      color: #fff;
-      box-shadow: 0 6px 20px rgba(139,47,201,0.3);
-    }
+    .btn:hover { transform: translateY(-3px); box-shadow: 0 14px 36px rgba(0,0,0,0.18); }
+    .btn-primary { background: var(--grad); color: #fff; box-shadow: 0 6px 20px rgba(139,47,201,0.3); }
     .btn-outline {
-      background: rgba(255,255,255,0.6);
-      backdrop-filter: blur(10px);
-      color: var(--text-light);
-      border: 1.5px solid rgba(139,47,201,0.35);
+      background: rgba(255,255,255,0.6); backdrop-filter: blur(10px);
+      color: var(--text-light); border: 1.5px solid rgba(139,47,201,0.35);
       box-shadow: 0 4px 16px rgba(0,0,0,0.08);
     }
-    .btn-outline:hover {
-      background: rgba(255,255,255,0.85);
-      border-color: var(--purple);
-    }
-    .btn svg {
-      width: 18px;
-      height: 18px;
-      flex-shrink: 0;
-    }
+    .btn-outline:hover { background: rgba(255,255,255,0.85); border-color: var(--purple); }
 
     /* ── FOOTER ── */
-    .footer-note {
-      margin-top: 60px;
-      font-size: 12px;
-      font-weight: 400;
-      letter-spacing: 0.15em;
-      color: #555;
-      text-transform: uppercase;
-      opacity: 0;
-      animation: fadeIn 0.6s ease forwards 1.5s;
-      text-align: center;
+    .footer {
+      padding: 48px 24px 40px; display: flex; flex-direction: column; align-items: center; gap: 16px;
+      border-top: 1px solid rgba(139,47,201,0.12);
     }
+    .footer-row { display: flex; align-items: center; justify-content: space-between; width: 100%; max-width: 860px; flex-wrap: wrap; gap: 16px; }
+    .footer-note {
+      font-size: 12px; font-weight: 400; letter-spacing: 0.15em; color: #555;
+      text-transform: uppercase; text-align: center;
+    }
+    .footer-note a { color: #555; text-decoration: none; transition: color 0.2s; }
+    .footer-note a:hover { color: var(--purple); }
 
     /* ── MODAL ── */
     .modal-overlay {
-      display: none;
-      position: fixed;
-      inset: 0;
-      z-index: 200;
-      background: rgba(0,0,0,0.45);
-      backdrop-filter: blur(6px);
-      align-items: center;
-      justify-content: center;
-      padding: 24px;
+      display: none; position: fixed; inset: 0; z-index: 300;
+      background: rgba(0,0,0,0.45); backdrop-filter: blur(6px);
+      align-items: center; justify-content: center; padding: 24px;
     }
-    .modal-overlay.active {
-      display: flex;
-    }
-
+    .modal-overlay.active { display: flex; }
     .modal {
-      background: rgba(255,255,255,0.95);
-      border-radius: 24px;
-      padding: 40px 36px;
-      max-width: 420px;
-      width: 100%;
-      box-shadow: 0 24px 64px rgba(0,0,0,0.2);
-      position: relative;
-      animation: modalIn 0.35s cubic-bezier(0.16,1,0.3,1) forwards;
+      background: rgba(255,255,255,0.97); border-radius: 24px; padding: 40px 36px;
+      max-width: 420px; width: 100%; box-shadow: 0 24px 64px rgba(0,0,0,0.2);
+      position: relative; animation: modalIn 0.35s cubic-bezier(0.16,1,0.3,1) forwards;
     }
-
-    @keyframes modalIn {
-      from { opacity: 0; transform: translateY(24px) scale(0.97); }
-      to   { opacity: 1; transform: translateY(0) scale(1); }
-    }
-
+    @keyframes modalIn { from { opacity:0; transform: translateY(24px) scale(0.97); } to { opacity:1; transform: translateY(0) scale(1); } }
     .modal-close {
-      position: absolute;
-      top: 16px;
-      right: 20px;
-      background: none;
-      border: none;
-      cursor: pointer;
-      color: #555;
-      font-size: 22px;
-      line-height: 1;
-      padding: 4px;
+      position: absolute; top: 16px; right: 20px;
+      background: none; border: none; cursor: pointer; color: #555; font-size: 22px; line-height: 1; padding: 4px;
       transition: color 0.2s;
     }
     .modal-close:hover { color: var(--text-light); }
-
-    .modal-logo {
-      display: flex;
-      justify-content: center;
-      margin-bottom: 20px;
-    }
-
+    .modal-logo { display: flex; justify-content: center; margin-bottom: 20px; }
     .modal h2 {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 26px;
-      font-weight: 900;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      color: var(--text-light);
-      text-align: center;
-      margin-bottom: 8px;
+      font-family: 'Barlow Condensed', sans-serif; font-size: 26px; font-weight: 900;
+      text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-light); text-align: center; margin-bottom: 8px;
     }
-
-    .modal p {
-      font-size: 14px;
-      font-weight: 300;
-      color: #555;
-      text-align: center;
-      line-height: 1.6;
-      margin-bottom: 24px;
-    }
-
+    .modal p { font-size: 14px; font-weight: 300; color: #555; text-align: center; line-height: 1.6; margin-bottom: 24px; }
     .modal-input {
-      width: 100%;
-      padding: 14px 18px;
-      border-radius: 50px;
+      width: 100%; padding: 14px 18px; border-radius: 50px;
       border: 1.5px solid rgba(139,47,201,0.3);
-      font-family: 'Barlow', sans-serif;
-      font-size: 15px;
-      outline: none;
-      background: #fff;
-      color: var(--text-light);
-      margin-bottom: 14px;
-      transition: border-color 0.2s;
+      font-family: 'Barlow', sans-serif; font-size: 15px; outline: none;
+      background: #fff; color: var(--text-light); margin-bottom: 14px; transition: border-color 0.2s;
     }
-    .modal-input:focus {
-      border-color: var(--purple);
-    }
-    .modal-input::placeholder {
-      color: #bbb;
-    }
-
+    .modal-input:focus { border-color: var(--purple); }
+    .modal-input::placeholder { color: #bbb; }
     .modal-submit {
-      width: 100%;
-      padding: 15px;
-      border-radius: 50px;
-      background: linear-gradient(90deg, var(--purple), var(--pink), var(--orange));
-      color: #fff;
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 15px;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      border: none;
-      cursor: pointer;
-      transition: transform 0.2s, box-shadow 0.2s;
-      box-shadow: 0 6px 20px rgba(139,47,201,0.3);
+      width: 100%; padding: 15px; border-radius: 50px;
+      background: var(--grad); color: #fff;
+      font-family: 'Barlow Condensed', sans-serif; font-size: 15px; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase; border: none; cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s; box-shadow: 0 6px 20px rgba(139,47,201,0.3);
     }
-    .modal-submit:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 28px rgba(139,47,201,0.4);
-    }
-
-    .modal-msg {
-      margin-top: 12px;
-      font-size: 13px;
-      text-align: center;
-      min-height: 18px;
-      color: var(--purple);
-      font-weight: 400;
-    }
+    .modal-submit:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(139,47,201,0.4); }
+    .modal-msg { margin-top: 12px; font-size: 13px; text-align: center; min-height: 18px; color: var(--purple); }
     .modal-msg.error { color: #e05050; }
 
     /* ── ANIMATIONS ── */
-    @keyframes fadeDown {
-      from { opacity: 0; transform: translateY(-20px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(28px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to   { opacity: 1; }
-    }
+    @keyframes fadeDown { from { opacity:0; transform: translateY(-20px); } to { opacity:1; transform: translateY(0); } }
+    @keyframes fadeUp { from { opacity:0; transform: translateY(24px); } to { opacity:1; transform: translateY(0); } }
+    @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
 
     /* ── RESPONSIVE ── */
-    @media (max-width: 600px) {
-      .page { padding: 48px 16px 60px; }
-      .fonderia-link { top: 16px; right: 16px; }
-      .fonderia-logo-svg { height: 56px; }
-      .products-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
-      .btn { padding: 14px 22px; font-size: 14px; }
-      .modal { padding: 32px 24px; }
+    @media (max-width: 680px) {
+      .navbar-links { display: none; }
+      .navbar-links.open { display: flex; flex-direction: column; position: fixed; top: 64px; left: 0; right: 0; background: rgba(220,220,220,0.96); backdrop-filter: blur(16px); padding: 16px 24px 24px; gap: 4px; border-bottom: 1px solid rgba(255,255,255,0.5); }
+      .nav-toggle { display: flex; }
+      .navbar-fonderia { display: none; }
+      .quality-section { grid-template-columns: 1fr; }
+      .scarcity-section { grid-template-columns: 1fr; }
+      .scarcity-img { width: 100%; aspect-ratio: 16/9; }
+      .teaser-3d { flex-direction: column; align-items: flex-start; gap: 16px; }
+      .footer-row { flex-direction: column; align-items: center; }
     }
-    /* ── FAQ ── */
-    .faq-sw-item {
-      border-bottom: 1px solid rgba(139,47,201,0.15);
+    @media (max-width: 480px) {
+      .products-grid { grid-template-columns: 1fr; }
+      .slider-arrow { width: 38px; height: 38px; }
+      .slider-arrow.prev { left: 10px; }
+      .slider-arrow.next { right: 10px; }
     }
-    .faq-sw-item:first-child { border-top: 1px solid rgba(139,47,201,0.15); }
-    .faq-sw-question {
-      width: 100%;
-      background: none;
-      border: none;
-      cursor: pointer;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 18px 0;
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 16px;
-      font-weight: 700;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: var(--text-light);
-      text-align: left;
-      gap: 20px;
-      transition: color 0.2s;
-    }
-    .faq-sw-question:hover { color: var(--purple); }
-    .faq-sw-icon {
-      font-size: 22px;
-      font-weight: 300;
-      background: linear-gradient(90deg, var(--purple), var(--gold));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      flex-shrink: 0;
-      transition: transform 0.3s ease;
-      line-height: 1;
-    }
-    .faq-sw-question.open .faq-sw-icon { transform: rotate(45deg); }
-    .faq-sw-answer {
-      font-size: 14px;
-      font-weight: 300;
-      color: var(--text-muted);
-      line-height: 1.8;
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.4s ease, padding 0.3s ease;
-      padding: 0;
-    }
-    .faq-sw-answer.open { max-height: 200px; padding-bottom: 18px; }
-
   </style>
 </head>
 <body>
 
-  <div class="bg"></div>
-  <div class="glow"></div>
+<div class="bg"></div>
+<div class="glow"></div>
 
-  <!-- Fonderia logo top-right -->
-  <a href="https://fonderia.srl" target="_blank" rel="noopener" class="fonderia-link">
-    <img src="logo fonderia.png" alt="Fonderia" class="fonderia-logo-svg">
+<!-- NAVBAR -->
+<nav class="navbar" role="navigation" aria-label="Navigazione principale">
+  <a href="index.html" class="navbar-logo" aria-label="Soundswood.I – Home">
+    <svg height="36" viewBox="0 0 220 260" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <circle cx="66" cy="62" r="46" stroke="#1a1a1a" stroke-width="8" fill="none"/>
+      <path d="M122 16 Q122 108 168 108 Q214 108 214 16" stroke="#1a1a1a" stroke-width="8" fill="none" stroke-linecap="round"/>
+      <circle cx="66" cy="174" r="46" stroke="#1a1a1a" stroke-width="8" fill="none"/>
+      <circle cx="168" cy="174" r="46" stroke="#1a1a1a" stroke-width="8" fill="none"/>
+    </svg>
+    <span class="navbar-logo-text">Sounds Wood.I</span>
   </a>
 
-  <div class="page">
+  <ul class="navbar-links" id="navLinks" role="list">
+    <li><a href="storia.html">Storia</a></li>
+    <li><a href="#prodotti">Prodotti</a></li>
+    <li><a href="stampa3d.html">Stampa 3D</a></li>
+    <li><a href="#faq">FAQ</a></li>
+    <li><a href="#prodotti" class="navbar-cta">Pre-ordina</a></li>
+  </ul>
 
-    <!-- HERO -->
-    <div class="hero">
-      <div class="logo-wrap">
-        <svg height="110" viewBox="0 0 220 260" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="66" cy="62" r="46" stroke="#1a1a1a" stroke-width="8" fill="none"/>
-          <path d="M122 16 Q122 108 168 108 Q214 108 214 16" stroke="#1a1a1a" stroke-width="8" fill="none" stroke-linecap="round"/>
-          <circle cx="66" cy="174" r="46" stroke="#1a1a1a" stroke-width="8" fill="none"/>
-          <circle cx="168" cy="174" r="46" stroke="#1a1a1a" stroke-width="8" fill="none"/>
-          <text x="110" y="244" text-anchor="middle" font-family="'Barlow Condensed', sans-serif" font-weight="300" font-size="19" letter-spacing="5" fill="#1a1a1a">SOUNDS WOOD.I</text>
-        </svg>
+  <a href="https://fonderia.srl" target="_blank" rel="noopener" class="navbar-fonderia" aria-label="Fonderia Srl">
+    <img src="logo fonderia.png" alt="Fonderia">
+  </a>
+
+  <button class="nav-toggle" id="navToggle" aria-label="Apri menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="page">
+
+  <!-- HERO SLIDER -->
+  <section class="hero-slider" aria-label="Collezione prodotti">
+    <!-- Slide 1 -->
+    <div class="slide active" role="group" aria-label="Prodotto 1 di 6">
+      <div class="hero-brand" aria-hidden="true">
+        <span class="hero-tagline">SAY IT LOUD.</span>
       </div>
-      <h1 class="tagline">SAY IT LOUD.</h1>
+      <div class="slide-img-wrap">
+        <img src="lambris trombetta.png" alt="Lambris Trombetta" loading="eager">
+      </div>
+      <span class="slide-number">01 / 06 — Milano Design Week 2026</span>
+      <h2 class="slide-name">Lambris Trombetta</h2>
+      <p class="slide-claim">Pannello acustico da parete. Design che tratta il suono senza sembrare un trattamento acustico.</p>
+      <a href="prodotti/lambris-trombetta.html" class="slide-cta">Scopri e pre-ordina →</a>
+    </div>
+    <!-- Slide 2 -->
+    <div class="slide" role="group" aria-label="Prodotto 2 di 6">
+      <div class="slide-img-wrap">
+        <img src="madia trombetta.png" alt="Madia Trombetta" loading="lazy">
+      </div>
+      <span class="slide-number">02 / 06 — Milano Design Week 2026</span>
+      <h2 class="slide-name">Madia Trombetta</h2>
+      <p class="slide-claim">Madia con funzione acustica integrata. Arredo e comfort sonoro in un unico pezzo.</p>
+      <a href="prodotti/madia-trombetta.html" class="slide-cta">Scopri e pre-ordina →</a>
+    </div>
+    <!-- Slide 3 -->
+    <div class="slide" role="group" aria-label="Prodotto 3 di 6">
+      <div class="slide-img-wrap">
+        <img src="vynil worm.png" alt="Vynilworm" loading="lazy">
+      </div>
+      <span class="slide-number">03 / 06 — Milano Design Week 2026</span>
+      <h2 class="slide-name">Vynilworm</h2>
+      <p class="slide-claim">Scultura acustica da parete. Ispirata alle forme del vinile, assorbe le frequenze mentre diventa il pezzo centrale della stanza.</p>
+      <a href="prodotti/vynilworm.html" class="slide-cta">Scopri e pre-ordina →</a>
+    </div>
+    <!-- Slide 4 -->
+    <div class="slide" role="group" aria-label="Prodotto 4 di 6">
+      <div class="slide-img-wrap">
+        <img src="dancing beton.png" alt="Dancing Beton" loading="lazy">
+      </div>
+      <span class="slide-number">04 / 06 — Milano Design Week 2026</span>
+      <h2 class="slide-name">Dancing Beton</h2>
+      <p class="slide-claim">Texture cemento, anima acustica. La durezza del beton reinterpretata come superficie che rispira.</p>
+      <a href="prodotti/dancing-beton.html" class="slide-cta">Scopri e pre-ordina →</a>
+    </div>
+    <!-- Slide 5 -->
+    <div class="slide" role="group" aria-label="Prodotto 5 di 6">
+      <div class="slide-img-wrap">
+        <img src="lawyer.png" alt="Lawyer" loading="lazy">
+      </div>
+      <span class="slide-number">05 / 06 — Milano Design Week 2026</span>
+      <h2 class="slide-name">Lawyer</h2>
+      <p class="slide-claim">Libreria acustica. L'oggetto che contiene le parole, ora tratta anche quelle nell'aria.</p>
+      <a href="prodotti/lawyer.html" class="slide-cta">Scopri e pre-ordina →</a>
+    </div>
+    <!-- Slide 6 -->
+    <div class="slide" role="group" aria-label="Prodotto 6 di 6">
+      <div class="slide-img-wrap">
+        <img src="tape monster.png" alt="Tape Monster" loading="lazy">
+      </div>
+      <span class="slide-number">06 / 06 — Milano Design Week 2026</span>
+      <h2 class="slide-name">Tape Monster</h2>
+      <p class="slide-claim">Oggetto sonoro da parete o pavimento. Irriverente nell'estetica, preciso nell'acustica.</p>
+      <a href="prodotti/tape-monster.html" class="slide-cta">Scopri e pre-ordina →</a>
     </div>
 
-    <!-- ARCHIPRODUCTS BADGE -->
-    <div style="opacity:0; animation:fadeUp 0.7s ease forwards 0.85s; display:flex; flex-direction:column; align-items:center; gap:10px; margin-top:24px;">
-      <p style="font-family:'Barlow Condensed',sans-serif; font-size:11px; font-weight:400; letter-spacing:0.3em; text-transform:uppercase; color:#888;">Scopri i nostri prodotti su</p>
-      <a href="https://www.archiproducts.com/it/soundswood-i" target="_blank" rel="noopener" style="display:inline-block; transition:transform 0.22s ease, opacity 0.22s ease;" onmouseover="this.style.transform='scale(1.06)';this.style.opacity='1'" onmouseout="this.style.transform='';this.style.opacity='0.82'">
-        <img src="archi_member.png" alt="Archiproducts" style="height:100px; width:auto; opacity:0.82;">
-      </a>
-    </div>
+    <button class="slider-arrow prev" onclick="changeSlide(-1)" aria-label="Prodotto precedente">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round"><path d="M15 18l-6-6 6-6"/></svg>
+    </button>
+    <button class="slider-arrow next" onclick="changeSlide(1)" aria-label="Prodotto successivo">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg>
+    </button>
+    <div class="slider-dots" id="sliderDots" role="tablist" aria-label="Selezione prodotto"></div>
+  </section>
 
-    <!-- 3D PRINT BANNER -->
-    <div style="width:100%; max-width:860px; margin-top:28px; opacity:0; animation:fadeUp 0.8s ease forwards 0.95s;">
-      <a href="stampa3d.html" style="text-decoration:none; display:flex; align-items:center; justify-content:space-between; gap:20px; background:rgba(255,255,255,0.52); backdrop-filter:blur(10px); border:1px solid rgba(255,255,255,0.75); border-radius:20px; padding:22px 32px; transition:transform 0.22s ease, box-shadow 0.22s ease;" onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 16px 40px rgba(0,0,0,0.12)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
-        <div style="display:flex; align-items:center; gap:18px;">
-          <div style="width:46px; height:46px; border-radius:12px; background:linear-gradient(135deg,#8B2FC9,#F0B030); display:flex; align-items:center; justify-content:center; flex-shrink:0;">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
-          </div>
-          <div>
-            <p style="font-family:'Barlow Condensed',sans-serif; font-size:10px; font-weight:400; letter-spacing:0.3em; text-transform:uppercase; color:#888; margin-bottom:2px;">Fonderia Service</p>
-            <p style="font-family:'Barlow Condensed',sans-serif; font-size:20px; font-weight:900; text-transform:uppercase; letter-spacing:0.04em; color:#1a1a1a; line-height:1;">Stampa 3D Professionale</p>
-            <p style="font-size:12px; font-weight:300; color:#888; margin-top:3px;">Progettazione, stampa e finitura per studi di design e aziende</p>
-          </div>
-        </div>
-        <div style="display:flex; align-items:center; gap:6px; font-family:'Barlow Condensed',sans-serif; font-size:13px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; background:linear-gradient(90deg,#8B2FC9,#C4308A,#E89040); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; white-space:nowrap; flex-shrink:0;">
-          Scopri il service
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#E89040" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </div>
-      </a>
-    </div>
-
-    <div class="divider"></div>
-
-    <!-- PRODUCTS 3x2 -->
-    <div class="products-section">
-      <p class="products-label">Milano Design Week 2026 — Collezione</p>
+  <!-- PRODUCTS GRID -->
+  <section class="section" id="prodotti">
+    <div class="section-inner">
+      <p class="section-label">Milano Design Week 2026 — Collezione completa</p>
       <div class="products-grid">
 
-        <div class="product-card">
-          <div class="product-img-wrap">
-            <img src="lambris trombetta.png" alt="Lambris Trombetta">
-          </div>
+        <a href="prodotti/lambris-trombetta.html" class="product-card">
+          <span class="product-badge">Edizione limitata</span>
+          <div class="product-img-wrap"><img src="lambris trombetta.png" alt="Lambris Trombetta" loading="lazy"></div>
           <span class="product-name">Lambris Trombetta</span>
-        </div>
+          <span class="product-availability">8 / 10 pezzi disponibili</span>
+          <div class="avail-bar"><div class="avail-fill" style="width:80%"></div></div>
+        </a>
 
-        <div class="product-card">
-          <div class="product-img-wrap">
-            <img src="madia trombetta.png" alt="Madia Trombetta">
-          </div>
+        <a href="prodotti/madia-trombetta.html" class="product-card">
+          <span class="product-badge">Edizione limitata</span>
+          <div class="product-img-wrap"><img src="madia trombetta.png" alt="Madia Trombetta" loading="lazy"></div>
           <span class="product-name">Madia Trombetta</span>
-        </div>
+          <span class="product-availability">9 / 10 pezzi disponibili</span>
+          <div class="avail-bar"><div class="avail-fill" style="width:90%"></div></div>
+        </a>
 
-        <div class="product-card">
-          <div class="product-img-wrap">
-            <img src="vynil worm.png" alt="Vynilworm">
-          </div>
+        <a href="prodotti/vynilworm.html" class="product-card">
+          <span class="product-badge">Edizione limitata</span>
+          <div class="product-img-wrap"><img src="vynil worm.png" alt="Vynilworm" loading="lazy"></div>
           <span class="product-name">Vynilworm</span>
-        </div>
+          <span class="product-availability">7 / 10 pezzi disponibili</span>
+          <div class="avail-bar"><div class="avail-fill" style="width:70%"></div></div>
+        </a>
 
-        <div class="product-card">
-          <div class="product-img-wrap">
-            <img src="dancing beton.png" alt="Dancing Beton">
-          </div>
+        <a href="prodotti/dancing-beton.html" class="product-card">
+          <span class="product-badge">Edizione limitata</span>
+          <div class="product-img-wrap"><img src="dancing beton.png" alt="Dancing Beton" loading="lazy"></div>
           <span class="product-name">Dancing Beton</span>
-        </div>
+          <span class="product-availability">10 / 10 pezzi disponibili</span>
+          <div class="avail-bar"><div class="avail-fill" style="width:100%"></div></div>
+        </a>
 
-        <div class="product-card">
-          <div class="product-img-wrap">
-            <img src="lawyer.png" alt="Lawyer">
-          </div>
+        <a href="prodotti/lawyer.html" class="product-card">
+          <span class="product-badge">Edizione limitata</span>
+          <div class="product-img-wrap"><img src="lawyer.png" alt="Lawyer" loading="lazy"></div>
           <span class="product-name">Lawyer</span>
-        </div>
+          <span class="product-availability">10 / 10 pezzi disponibili</span>
+          <div class="avail-bar"><div class="avail-fill" style="width:100%"></div></div>
+        </a>
 
-        <div class="product-card">
-          <div class="product-img-wrap">
-            <img src="tape monster.png" alt="Tape Monster">
-          </div>
+        <a href="prodotti/tape-monster.html" class="product-card">
+          <span class="product-badge">Edizione limitata</span>
+          <div class="product-img-wrap"><img src="tape monster.png" alt="Tape Monster" loading="lazy"></div>
           <span class="product-name">Tape Monster</span>
-        </div>
+          <span class="product-availability">10 / 10 pezzi disponibili</span>
+          <div class="avail-bar"><div class="avail-fill" style="width:100%"></div></div>
+        </a>
 
       </div>
     </div>
+  </section>
 
-    <!-- BUTTONS -->
-    <div class="buttons-section">
+  <!-- QUALITY SECTION -->
+  <section class="section" style="padding-top:0;">
+    <div class="section-inner">
+      <div class="divider" style="margin-bottom:72px;"></div>
+      <div class="quality-section">
+        <div class="quality-text">
+          <h2>Design che <span>tratta il suono</span> senza sembrare acustica</h2>
+          <p>Ogni pezzo Soundswood.I nasce dall'intersezione tra forma, materiale e fisica del suono. Non aggiungiamo pannelli: integriamo la funzione acustica direttamente nell'oggetto di arredo.</p>
+          <p>Il risultato è uno spazio che suona bene e si vede meglio. Per ristoranti, studi, hotel, abitazioni dove l'estetica non è negoziabile.</p>
+          <a href="storia.html" class="btn btn-outline" style="margin-top:8px;">La nostra storia →</a>
+        </div>
+        <div class="quality-img">
+          <img src="lambris trombetta.png" alt="Dettaglio acustico Soundswood.I" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </section>
 
+  <!-- SCARCITY SECTION -->
+  <section class="section" id="preordine">
+    <div class="section-inner">
+      <div class="scarcity-section">
+        <div class="scarcity-img">
+          <img src="madia trombetta.png" alt="Handcrafted Soundswood.I" loading="lazy">
+        </div>
+        <div>
+          <p class="scarcity-label">Edizione limitata handcrafted</p>
+          <h2 class="scarcity-title">Solo <span>10 pezzi</span> per prodotto.</h2>
+          <p class="scarcity-desc">Ogni pezzo viene realizzato a mano nel nostro atelier di Milano. Non è un limite di marketing: è il limite fisico di quello che possiamo fare bene, con consegna garantita entro Natale 2026.</p>
+          <div class="scarcity-meta">
+            <div class="scarcity-stat">
+              <span class="scarcity-stat-num">10</span>
+              <span class="scarcity-stat-label">Pezzi per prodotto</span>
+            </div>
+            <div class="scarcity-stat">
+              <span class="scarcity-stat-num">6</span>
+              <span class="scarcity-stat-label">Prodotti in collezione</span>
+            </div>
+            <div class="scarcity-stat">
+              <span class="scarcity-stat-num">Dic '26</span>
+              <span class="scarcity-stat-label">Consegna garantita</span>
+            </div>
+          </div>
+          <div class="global-avail-bar"><div class="global-avail-fill" id="globalFill" style="width:88%"></div></div>
+          <p class="scarcity-note" id="globalNote">54 / 60 pezzi totali ancora disponibili</p>
+          <a href="#prodotti" class="scarcity-cta">Prenota il tuo pezzo →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STAMPA 3D TEASER -->
+  <section class="section" style="padding-top:0; padding-bottom:80px;">
+    <div class="section-inner">
+      <a href="stampa3d.html" class="teaser-3d" aria-label="Fonderia Service – Stampa 3D professionale">
+        <div style="display:flex; align-items:center; gap:18px;">
+          <div class="teaser-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+          </div>
+          <div>
+            <p class="teaser-eyebrow">Fonderia Service</p>
+            <p class="teaser-name">Stampa 3D Professionale</p>
+            <p class="teaser-sub">Progettazione, stampa e finitura per studi di design e aziende</p>
+          </div>
+        </div>
+        <span class="teaser-arrow">Scopri il service →</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section" id="faq" style="padding-top:0;">
+    <div class="section-inner">
+      <div class="divider" style="margin-bottom:64px;"></div>
+      <p class="section-label">Domande frequenti</p>
+      <div id="faq-list">
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">Cosa sono esattamente i prodotti Soundswood.I?<span class="faq-icon">+</span></button>
+          <div class="faq-answer">Sono elementi di arredo — pannelli, madie, librerie, superfici — che hanno una funzione acustica integrata nella forma e nel materiale. Non si tratta di pannelli fonoassorbenti tecnici applicati a parete: sono pezzi di design che trattano il suono senza sembrare trattamenti acustici.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">Come faccio a sapere se fanno al caso mio?<span class="faq-icon">+</span></button>
+          <div class="faq-answer">Se hai un ambiente rumoroso — un ristorante, un open space, una lounge — e non vuoi ricorrere a soluzioni tecniche che snaturano l'estetica, Soundswood.I è pensato per questo. Scrivici con una breve descrizione dello spazio e ti diciamo subito se c'è un prodotto adatto.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">Si possono personalizzare nelle dimensioni e nelle finiture?<span class="faq-icon">+</span></button>
+          <div class="faq-answer">Sì. Lavoriamo su commessa per studi di architettura e aziende. Dimensioni, materiali e finiture possono essere adattati al progetto specifico. Contattaci per discutere le opzioni.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">Per quali ambienti funzionano meglio?<span class="faq-icon">+</span></button>
+          <div class="faq-answer">Ristoranti e locali F&amp;B, uffici open space, hotel e aree lounge, showroom e spazi retail, residenze private. In generale, qualsiasi ambiente dove il comfort acustico è rilevante ma l'estetica non è negoziabile.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">Dove posso vederli dal vivo?<span class="faq-icon">+</span></button>
+          <div class="faq-answer">Nel nostro atelier di Milano in Via Pasquale Paoli 8. Scrivici a <a href="mailto:diego@fonderia.srl" style="color:var(--purple);">diego@fonderia.srl</a> per fissare un appuntamento — preferiamo mostrare i prodotti di persona piuttosto che in foto.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">Come funziona il pre-ordine?<span class="faq-icon">+</span></button>
+          <div class="faq-answer">Scegli il prodotto, compila il form di pre-ordine e ricevi una conferma via email entro 24h. La produzione parte a luglio 2026, la consegna è garantita entro Natale 2026. I dettagli del pagamento vengono concordati con te via email dopo la prenotazione.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">Sono disponibili su Archiproducts?<span class="faq-icon">+</span></button>
+          <div class="faq-answer">Sì, i prodotti Soundswood.I sono presenti su <a href="https://www.archiproducts.com/it/soundswood-i" target="_blank" style="color:var(--purple);">Archiproducts</a>, la principale piattaforma di riferimento per architetti e interior designer.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BOTTOM CTA ROW -->
+  <section class="section" style="padding-top:0; padding-bottom:80px;">
+    <div class="section-inner" style="display:flex; gap:16px; justify-content:center; flex-wrap:wrap;">
       <button onclick="openModal()" class="btn btn-outline">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-          <path d="M12 2v13M7 11l5 5 5-5"/><path d="M3 18v2a1 1 0 001 1h16a1 1 0 001-1v-2"/>
-        </svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" width="18" height="18"><path d="M12 2v13M7 11l5 5 5-5"/><path d="M3 18v2a1 1 0 001 1h16a1 1 0 001-1v-2"/></svg>
         Catalogo & Price List
       </button>
-
       <a href="media_kit.zip" download class="btn btn-outline">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-          <rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 12h6M12 9v6"/>
-        </svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" width="18" height="18"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 12h6M12 9v6"/></svg>
         Media Kit
       </a>
-
-      <a href="mailto:diego@fonderia.srl?subject=Acquisto%20Soundswood.I&body=Salve%2C%20sono%20interessato%20ad%20acquistare..." class="btn btn-primary">
-        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round">
-          <path d="M20 12V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2h7"/><path d="M16 19l2 2 4-4"/>
-        </svg>
-        Compra Ora
-      </a>
-
     </div>
+  </section>
 
-    <!-- FAQ -->
-    <div class="divider" style="animation:none; opacity:1; margin-top:60px;"></div>
-    <div style="width:100%; max-width:860px; opacity:0; animation: fadeIn 0.6s ease forwards 1.5s;">
-      <p class="products-label" style="margin-bottom:32px;">Domande frequenti</p>
-      <div id="faq-list">
-
-        <div class="faq-sw-item">
-          <button class="faq-sw-question" onclick="toggleFaqSw(this)">Cosa sono esattamente i prodotti Sounds Wood.i?<span class="faq-sw-icon">+</span></button>
-          <div class="faq-sw-answer">Sono elementi di arredo — pannelli, madie, librerie, superfici — che hanno una funzione acustica integrata nella forma e nel materiale. Non si tratta di pannelli fonoassorbenti tecnici applicati a parete: sono pezzi di design che trattano il suono senza sembrare trattamenti acustici.</div>
-        </div>
-
-        <div class="faq-sw-item">
-          <button class="faq-sw-question" onclick="toggleFaqSw(this)">Come faccio a sapere se fanno al caso mio?<span class="faq-sw-icon">+</span></button>
-          <div class="faq-sw-answer">Se in un tuo progetto hai un ambiente rumoroso — un ristorante, un open space, una lounge — e non vuoi ricorrere a soluzioni tecniche che snaturano l'estetica, Sounds Wood.i è pensato per questo. Scrivici con una breve descrizione dello spazio e ti diciamo subito se c'è un prodotto adatto.</div>
-        </div>
-
-        <div class="faq-sw-item">
-          <button class="faq-sw-question" onclick="toggleFaqSw(this)">Si possono personalizzare nelle dimensioni e nelle finiture?<span class="faq-sw-icon">+</span></button>
-          <div class="faq-sw-answer">Sì. Lavoriamo su commessa per studi di architettura e aziende. Dimensioni, materiali e finiture possono essere adattati al progetto specifico. Contattaci per discutere le opzioni.</div>
-        </div>
-
-        <div class="faq-sw-item">
-          <button class="faq-sw-question" onclick="toggleFaqSw(this)">Per quali ambienti funzionano meglio?<span class="faq-sw-icon">+</span></button>
-          <div class="faq-sw-answer">Ristoranti e locali F&amp;B, uffici open space, hotel e aree lounge, showroom e spazi retail, residenze private. In generale, qualsiasi ambiente dove il comfort acustico è rilevante ma l'estetica non è negoziabile.</div>
-        </div>
-
-        <div class="faq-sw-item">
-          <button class="faq-sw-question" onclick="toggleFaqSw(this)">Dove posso vederli dal vivo?<span class="faq-sw-icon">+</span></button>
-          <div class="faq-sw-answer">Nel nostro atelier di Milano in Via Pasquale Paoli. Scrivici a <a href="mailto:diego@fonderia.srl" style="color:var(--purple);">diego@fonderia.srl</a> per fissare un appuntamento — preferiamo mostrare i prodotti di persona piuttosto che in foto.</div>
-        </div>
-
-        <div class="faq-sw-item">
-          <button class="faq-sw-question" onclick="toggleFaqSw(this)">Sono disponibili su Archiproducts?<span class="faq-sw-icon">+</span></button>
-          <div class="faq-sw-answer">Sì, i prodotti Sounds Wood.i sono presenti su Archiproducts, la principale piattaforma di riferimento per architetti e interior designer.</div>
-        </div>
-
-        <div class="faq-sw-item">
-          <button class="faq-sw-question" onclick="toggleFaqSw(this)">Come si acquistano?<span class="faq-sw-icon">+</span></button>
-          <div class="faq-sw-answer">Scrivi a <a href="mailto:diego@fonderia.srl" style="color:var(--purple);">diego@fonderia.srl</a> o chiama il +39 328 828 9571. Puoi anche scaricare il catalogo e la price list dal sito per avere un primo riferimento.</div>
-        </div>
-
-        <div class="faq-sw-item">
-          <button class="faq-sw-question" onclick="toggleFaqSw(this)">Il service stampa 3D è solo per l'arredo?<span class="faq-sw-icon">+</span></button>
-          <div class="faq-sw-answer">Siamo specializzati in componenti per arredamento e interior design — elementi decorativi, dettagli custom, parti strutturali di mobili — ma lavoriamo anche per aziende e studi che hanno bisogno di prototipi, piccole serie o componenti funzionali in altri settori.</div>
-        </div>
-
-        <div class="faq-sw-item">
-          <button class="faq-sw-question" onclick="toggleFaqSw(this)">Devo avere già un file 3D pronto?<span class="faq-sw-icon">+</span></button>
-          <div class="faq-sw-answer">No. Possiamo partire da un'idea, un disegno o anche solo una descrizione verbale. Il nostro team sviluppa o ottimizza il file 3D prima della stampa. Se hai già un file, lo verifichiamo e lo prepariamo per la produzione.</div>
-        </div>
-
-        <div class="faq-sw-item">
-          <button class="faq-sw-question" onclick="toggleFaqSw(this)">Che materiali usate per la stampa 3D?<span class="faq-sw-icon">+</span></button>
-          <div class="faq-sw-answer">PLA, PETG, TPU, Nylon, ABS, Resina SLA, ASA e filamenti speciali su richiesta come carbon fiber, legno composito e metallo composito. La scelta dipende dall'uso finale del pezzo — te la consigliamo noi in base al progetto.</div>
-        </div>
-
-        <div class="faq-sw-item">
-          <button class="faq-sw-question" onclick="toggleFaqSw(this)">Quanto costa la stampa 3D?<span class="faq-sw-icon">+</span></button>
-          <div class="faq-sw-answer">Il prezzo dipende da materiale, dimensioni, complessità del file e finitura richiesta. Scrivici a <a href="mailto:andrea@fonderia.srl" style="color:var(--purple);">andrea@fonderia.srl</a> con una descrizione del pezzo o allega il file 3D — ti mandiamo un preventivo senza impegno.</div>
-        </div>
-
-      </div>
-    </div>
-
-    <div class="divider" style="animation:none; opacity:1;"></div>
-
-    <div style="position:relative; width:100%; max-width:860px; margin-top:60px; animation: fadeIn 0.6s ease forwards 1.5s; opacity:0;">
-      <p class="footer-note" style="margin-top:0; animation:none; opacity:1;">Soundswood.I is a brand of Fonderia Srl &nbsp;·&nbsp; Milano</p>
-      <p class="footer-note" style="margin-top:10px; animation:none; opacity:1;"><a href="mailto:diego@fonderia.srl" style="color:#555;text-decoration:none;">diego@fonderia.srl</a> &nbsp;·&nbsp; <a href="tel:+393288289571" style="color:#555;text-decoration:none;">+39 328 828 9571</a></p>
-      <p class="footer-note" style="margin-top:10px; animation:none; opacity:1;"><a href="https://maps.google.com/?q=Via+Pasquale+Paoli+8,+20143+Milano" target="_blank" style="color:#555;text-decoration:none;">Via Pasquale Paoli 8, 20143 Milano</a></p>
-      <a href="https://www.archiproducts.com" target="_blank" rel="noopener" style="position:absolute; right:0; bottom:0;">
-        <img src="archi_member.png" alt="Archiproducts Member" style="height:80px; width:auto; opacity:0.75; transition:opacity 0.2s;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.75">
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-row">
+      <p class="footer-note">Soundswood.I is a brand of <a href="https://fonderia.srl" target="_blank" rel="noopener">Fonderia Srl</a> &nbsp;·&nbsp; Milano</p>
+      <p class="footer-note">
+        <a href="mailto:diego@fonderia.srl">diego@fonderia.srl</a> &nbsp;·&nbsp;
+        <a href="tel:+393288289571">+39 328 828 9571</a>
+      </p>
+      <p class="footer-note">
+        <a href="https://maps.google.com/?q=Via+Pasquale+Paoli+8,+20143+Milano" target="_blank" rel="noopener">Via Pasquale Paoli 8, 20143 Milano</a>
+      </p>
+      <a href="https://www.archiproducts.com/it/soundswood-i" target="_blank" rel="noopener" aria-label="Archiproducts">
+        <img src="archi_member.png" alt="Archiproducts Member" style="height:56px; width:auto; opacity:0.7; transition:opacity 0.2s;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.7">
       </a>
     </div>
+  </footer>
 
-  </div>
+</div><!-- /page -->
 
-  <!-- MODAL email gate per catalogo -->
-  <div class="modal-overlay" id="modalOverlay" onclick="closeModalOutside(event)">
-    <div class="modal" id="modal">
-      <button class="modal-close" onclick="closeModal()">✕</button>
-      <div class="modal-logo">
-        <svg height="48" viewBox="0 0 220 260" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="66" cy="62" r="46" stroke="#1a1a1a" stroke-width="8" fill="none"/>
-          <path d="M122 16 Q122 108 168 108 Q214 108 214 16" stroke="#1a1a1a" stroke-width="8" fill="none" stroke-linecap="round"/>
-          <circle cx="66" cy="174" r="46" stroke="#1a1a1a" stroke-width="8" fill="none"/>
-          <circle cx="168" cy="174" r="46" stroke="#1a1a1a" stroke-width="8" fill="none"/>
-        </svg>
-      </div>
-      <h2>Scarica il Catalogo</h2>
-      <p>Inserisci la tua email per accedere al catalogo e alla price list di Soundswood.I</p>
-      <input type="email" id="emailInput" class="modal-input" placeholder="la tua@email.com">
-      <label style="display:flex; align-items:flex-start; gap:10px; cursor:pointer; margin-bottom:14px;">
-        <input type="checkbox" id="marketingConsent" style="margin-top:3px; accent-color:#8B2FC9; width:16px; height:16px; flex-shrink:0;">
-        <span style="font-size:12px; font-weight:300; color:#888; line-height:1.5;">Acconsento a ricevere comunicazioni commerciali e di marketing da parte di Fonderia Srl. Potrai revocare il consenso in qualsiasi momento.</span>
-      </label>
-      <button class="modal-submit" onclick="submitEmail()">Scarica ora</button>
-      <p class="modal-msg" id="modalMsg"></p>
+<!-- MODAL catalogo -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModalOutside(event)" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal" id="modal">
+    <button class="modal-close" onclick="closeModal()" aria-label="Chiudi">✕</button>
+    <div class="modal-logo">
+      <svg height="48" viewBox="0 0 220 260" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <circle cx="66" cy="62" r="46" stroke="#1a1a1a" stroke-width="8" fill="none"/>
+        <path d="M122 16 Q122 108 168 108 Q214 108 214 16" stroke="#1a1a1a" stroke-width="8" fill="none" stroke-linecap="round"/>
+        <circle cx="66" cy="174" r="46" stroke="#1a1a1a" stroke-width="8" fill="none"/>
+        <circle cx="168" cy="174" r="46" stroke="#1a1a1a" stroke-width="8" fill="none"/>
+      </svg>
     </div>
+    <h2 id="modalTitle">Scarica il Catalogo</h2>
+    <p>Inserisci la tua email per accedere al catalogo e alla price list di Soundswood.I</p>
+    <input type="email" id="emailInput" class="modal-input" placeholder="la tua@email.com" aria-label="Indirizzo email">
+    <label style="display:flex; align-items:flex-start; gap:10px; cursor:pointer; margin-bottom:14px;">
+      <input type="checkbox" id="marketingConsent" style="margin-top:3px; accent-color:#8B2FC9; width:16px; height:16px; flex-shrink:0;" aria-label="Consenso marketing">
+      <span style="font-size:12px; font-weight:300; color:#888; line-height:1.5;">Acconsento a ricevere comunicazioni commerciali e di marketing da parte di Fonderia Srl.</span>
+    </label>
+    <button class="modal-submit" onclick="submitEmail()">Scarica ora</button>
+    <p class="modal-msg" id="modalMsg" aria-live="polite"></p>
   </div>
+</div>
 
-  <script>
-    // ── Sostituisci questo URL con quello del tuo Google Apps Script ──
-    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyCNuHGcYJfkqj8XUwxPc7XmU27vRaSaUphwwn0qUoET8fNYXMf7tr-jc8BoPJwo5TXCg/exec';
+<script>
+  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyCNuHGcYJfkqj8XUwxPc7XmU27vRaSaUphwwn0qUoET8fNYXMf7tr-jc8BoPJwo5TXCg/exec';
 
-    function openModal() {
-      document.getElementById('modalOverlay').classList.add('active');
-      document.getElementById('emailInput').value = '';
-      document.getElementById('modalMsg').textContent = '';
-      document.getElementById('modalMsg').className = 'modal-msg';
-    }
+  // ── SLIDER ──
+  let currentSlide = 0;
+  const slides = document.querySelectorAll('.slide');
+  const dotsContainer = document.getElementById('sliderDots');
+  let autoplayTimer;
 
-    function closeModal() {
-      document.getElementById('modalOverlay').classList.remove('active');
-    }
+  slides.forEach((_, i) => {
+    const dot = document.createElement('button');
+    dot.className = 'dot' + (i === 0 ? ' active' : '');
+    dot.setAttribute('role', 'tab');
+    dot.setAttribute('aria-label', 'Prodotto ' + (i+1));
+    dot.onclick = () => goToSlide(i);
+    dotsContainer.appendChild(dot);
+  });
 
-    function closeModalOutside(e) {
-      if (e.target === document.getElementById('modalOverlay')) closeModal();
-    }
+  function goToSlide(n) {
+    slides[currentSlide].classList.remove('active');
+    dotsContainer.children[currentSlide].classList.remove('active');
+    currentSlide = (n + slides.length) % slides.length;
+    slides[currentSlide].classList.add('active');
+    dotsContainer.children[currentSlide].classList.add('active');
+    resetAutoplay();
+  }
+  function changeSlide(dir) { goToSlide(currentSlide + dir); }
+  function resetAutoplay() {
+    clearInterval(autoplayTimer);
+    autoplayTimer = setInterval(() => changeSlide(1), 5000);
+  }
+  resetAutoplay();
 
-    async function submitEmail() {
-      const email = document.getElementById('emailInput').value.trim();
-      const msg = document.getElementById('modalMsg');
+  // keyboard nav for slider
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowLeft') changeSlide(-1);
+    if (e.key === 'ArrowRight') changeSlide(1);
+  });
 
-      // Formato base
-      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) {
-        msg.textContent = 'Inserisci un indirizzo email valido.';
-        msg.className = 'modal-msg error';
-        return;
-      }
+  // ── MOBILE NAV ──
+  const navToggle = document.getElementById('navToggle');
+  const navLinks = document.getElementById('navLinks');
+  navToggle.addEventListener('click', () => {
+    const open = navLinks.classList.toggle('open');
+    navToggle.setAttribute('aria-expanded', open);
+  });
+  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    navLinks.classList.remove('open');
+    navToggle.setAttribute('aria-expanded', false);
+  }));
 
-      // Validazione dominio più robusta
-      const domain = email.split('@')[1].toLowerCase();
-      const parts = domain.split('.');
-      const tld = parts[parts.length - 1];
-      const domainName = parts[parts.length - 2] || '';
-
-      // Blocca TLD troppo corti o inesistenti
-      if (tld.length < 2) {
-        msg.textContent = 'Inserisci un indirizzo email corretta.';
-        msg.className = 'modal-msg error';
-        return;
-      }
-
-      // Blocca domini con nome troppo corto (es. a.com, io.com, x.it)
-      if (domainName.length < 3) {
-        msg.textContent = 'Inserisci un indirizzo email corretta.';
-        msg.className = 'modal-msg error';
-        return;
-      }
-
-      // Blocca domini temporanei e falsi
-      const fakeDomains = ['test.com','test.it','fake.com','fake.it','example.com','example.it','prova.it','prova.com','aaa.com','bbb.com','ccc.com','xxx.com','mailinator.com','guerrillamail.com','tempmail.com','throwam.com','yopmail.com','sharklasers.com','dispostable.com','trashmail.com','getairmail.com','filzmail.com','spamgourmet.com'];
-      if (fakeDomains.includes(domain)) {
-        msg.textContent = 'Inserisci un indirizzo email corretta.';
-        msg.className = 'modal-msg error';
-        return;
-      }
-
-      // Avviso consenso marketing se non spuntato
-      const consent = document.getElementById('marketingConsent').checked;
-      if (!consent) {
-        msg.textContent = '⚠️ Ricorda: spunta il consenso per restare aggiornato sulle nostre novità!';
-        msg.className = 'modal-msg';
-      }
-
-      const btn = document.querySelector('.modal-submit');
-      btn.textContent = 'Invio in corso...';
-      btn.disabled = true;
-
-      try {
-        await fetch(SCRIPT_URL, {
-          method: 'POST',
-          mode: 'no-cors',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email: email, timestamp: new Date().toISOString(), marketing: document.getElementById('marketingConsent').checked ? 'Si' : 'No' })
-        });
-
-        // Download automatico
-        const link = document.createElement('a');
-        link.href = 'SOUNDSWOODI_catalogo.pdf';
-        link.download = 'SOUNDSWOODI_catalogo.pdf';
-        link.click();
-
-        msg.textContent = '✓ Download avviato!';
-        msg.className = 'modal-msg';
-        setTimeout(closeModal, 1800);
-      } catch(e) {
-        // Scarica comunque anche se lo script fallisce
-        const link = document.createElement('a');
-        link.href = 'SOUNDSWOODI_catalogo.pdf';
-        link.download = 'SOUNDSWOODI_catalogo.pdf';
-        link.click();
-        msg.textContent = '✓ Download avviato!';
-        msg.className = 'modal-msg';
-        setTimeout(closeModal, 1800);
-      } finally {
-        btn.textContent = 'Scarica ora';
-        btn.disabled = false;
-      }
-    }
-
-    // FAQ accordion
-    function toggleFaqSw(btn) {
-      const answer = btn.nextElementSibling;
-      const isOpen = btn.classList.contains('open');
-      document.querySelectorAll('.faq-sw-question.open').forEach(q => {
-        q.classList.remove('open');
-        q.nextElementSibling.classList.remove('open');
-      });
-      if (!isOpen) {
-        btn.classList.add('open');
-        answer.classList.add('open');
-      }
-    }
-
-    document.getElementById('emailInput').addEventListener('keydown', function(e) {
-      if (e.key === 'Enter') submitEmail();
+  // ── FAQ ──
+  function toggleFaq(btn) {
+    const answer = btn.nextElementSibling;
+    const isOpen = btn.classList.contains('open');
+    document.querySelectorAll('.faq-question.open').forEach(q => {
+      q.classList.remove('open'); q.nextElementSibling.classList.remove('open');
     });
-  </script>
+    if (!isOpen) { btn.classList.add('open'); answer.classList.add('open'); }
+  }
 
+  // ── MODAL CATALOGO ──
+  function openModal() {
+    document.getElementById('modalOverlay').classList.add('active');
+    document.getElementById('emailInput').value = '';
+    document.getElementById('modalMsg').textContent = '';
+  }
+  function closeModal() { document.getElementById('modalOverlay').classList.remove('active'); }
+  function closeModalOutside(e) { if (e.target === document.getElementById('modalOverlay')) closeModal(); }
+
+  async function submitEmail() {
+    const email = document.getElementById('emailInput').value.trim();
+    const msg = document.getElementById('modalMsg');
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) {
+      msg.textContent = 'Inserisci un indirizzo email valido.';
+      msg.className = 'modal-msg error'; return;
+    }
+    const btn = document.querySelector('.modal-submit');
+    btn.textContent = 'Invio in corso...'; btn.disabled = true;
+    try {
+      await fetch(SCRIPT_URL, {
+        method: 'POST', mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ type: 'catalogo', email, timestamp: new Date().toISOString(), marketing: document.getElementById('marketingConsent').checked ? 'Si' : 'No' })
+      });
+      const link = document.createElement('a');
+      link.href = 'SOUNDSWOODI_catalogo.pdf'; link.download = 'SOUNDSWOODI_catalogo.pdf'; link.click();
+      msg.textContent = '✓ Download avviato!'; msg.className = 'modal-msg';
+      setTimeout(closeModal, 1800);
+    } catch(e) {
+      const link = document.createElement('a');
+      link.href = 'SOUNDSWOODI_catalogo.pdf'; link.download = 'SOUNDSWOODI_catalogo.pdf'; link.click();
+      msg.textContent = '✓ Download avviato!'; msg.className = 'modal-msg';
+      setTimeout(closeModal, 1800);
+    } finally { btn.textContent = 'Scarica ora'; btn.disabled = false; }
+  }
+  document.getElementById('emailInput').addEventListener('keydown', e => { if (e.key === 'Enter') submitEmail(); });
+</script>
 </body>
 </html>
